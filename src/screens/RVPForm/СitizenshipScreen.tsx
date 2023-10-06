@@ -1,12 +1,12 @@
 import {View} from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import ButtonSkip from '../components/ButtonSkip';
-import HeaderFilling from '../components/HeaderFilling';
-import InputDropDown from '../components/InputDropDown';
-import {useAppDispatch, useAppSelector} from '../../hook';
+import globalStyles from '../../styles/globalStyles';
+import ButtonSkip from '../../components/ButtonSkip';
+import HeaderFilling from '../../components/HeaderFilling';
+import InputDropDown from '../../components/InputDropDown';
+import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {addPetitionItem} from '../../store/petitionSlice';
 import {useState} from 'react';
-import ButtonDone from '../components/ButtonDone';
+import ButtonDone from '../../components/ButtonDone';
 
 function СitizenshipScreen(props: any) {
   const navigation = props.navigation;

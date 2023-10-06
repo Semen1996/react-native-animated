@@ -17,6 +17,12 @@ const globalStyles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 16,
   },
+  text12Med: {
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 15.96,
+    letterSpacing: 0.2,
+  },
   text14Med: {
     fontSize: 14,
     fontWeight: '500',

@@ -7,11 +7,11 @@ import {
   View,
 } from 'react-native';
 import {useState} from 'react';
-import globalStyles from '../styles/globalStyles';
-import ButtonSkip from '../components/ButtonSkip';
-import HeaderFilling from '../components/HeaderFilling';
-import ButtonDone from '../components/ButtonDone';
-import { useAppDispatch, useAppSelector } from '../../hook';
+import globalStyles from '../../styles/globalStyles';
+import ButtonSkip from '../../components/ButtonSkip';
+import HeaderFilling from '../../components/HeaderFilling';
+import ButtonDone from '../../components/ButtonDone';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
 
 function MotivesScreen(props: any) {

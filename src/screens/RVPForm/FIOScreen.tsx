@@ -7,12 +7,12 @@ import {
   View,
 } from 'react-native';
 import {useState} from 'react';
-import globalStyles from '../styles/globalStyles';
-import ButtonSkip from '../components/ButtonSkip';
-import HeaderFilling from '../components/HeaderFilling';
-import ButtonDone from '../components/ButtonDone';
-import FloatingLabelInput from '../components/FloatingLabelInput';
-import { useAppDispatch, useAppSelector } from '../../hook';
+import globalStyles from '../../styles/globalStyles';
+import ButtonSkip from '../../components/ButtonSkip';
+import HeaderFilling from '../../components/HeaderFilling';
+import ButtonDone from '../../components/ButtonDone';
+import FloatingLabelInput from '../../components/FloatingLabelInput';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
 
 function FIOScreen(props: any) {
@@ -51,7 +51,7 @@ function FIOScreen(props: any) {
         value: patronymic,
       }),
     );
-    navigation.navigate('Дата рождения');
+    navigation.navigate('BottomTabs');
   }
 
   function handleName(evt: NativeSyntheticEvent<TextInputChangeEventData>): void {
@@ -94,7 +94,7 @@ function FIOScreen(props: any) {
           isFilled ?
             <ButtonDone onPress={handleFill}/>
             :
-            <ButtonSkip onPress={() => navigation.navigate('Дата рождения')} />
+            <ButtonSkip onPress={() => navigation.navigate('BottomTabs')} />
         }
       </View>
     </View>

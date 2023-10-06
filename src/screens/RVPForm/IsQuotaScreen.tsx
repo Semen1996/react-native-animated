@@ -4,14 +4,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import ButtonSkip from '../components/ButtonSkip';
-import HeaderFilling from '../components/HeaderFilling';
-import PointIcon from '../images/Icons/point_stroke.svg';
+import globalStyles from '../../styles/globalStyles';
+import ButtonSkip from '../../components/ButtonSkip';
+import HeaderFilling from '../../components/HeaderFilling';
 import { Circle, Rect, Svg } from 'react-native-svg';
 import { useState } from 'react';
-import ButtonDone from '../components/ButtonDone';
-import { useAppDispatch, useAppSelector } from '../../hook';
+import ButtonDone from '../../components/ButtonDone';
+import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
 
 function IsQuotaScreen(props: any) {

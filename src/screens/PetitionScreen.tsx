@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
 import { Rect, Svg } from "react-native-svg";
-import { useAppSelector } from "../../hook";
+import { useAppSelector } from "../hooks/hook";
 
 function PetitionScreen(props: any) {
   const [isOpen1, setIsOpen1] = useState(false);

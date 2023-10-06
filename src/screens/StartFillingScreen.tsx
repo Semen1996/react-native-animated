@@ -3,8 +3,8 @@ import MoneyIcon from '../images/Icons/payments.svg';
 import PointIcon from '../images/Icons/point_stroke.svg';
 import CountriesDropDown from "../components/CountriesDropDown";
 import BackButton from "../components/BackButton";
-import { useAppDispatch } from "../../hook";
-import { addPetition } from "../../store/petitionSlice";
+import { useAppDispatch } from "../hooks/hook";
+import { addPetition } from "../store/petitionSlice";
 
 function StartFillingScreen(props: any) {
   const navigation = props.navigation;

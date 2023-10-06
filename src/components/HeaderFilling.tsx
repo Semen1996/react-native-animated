@@ -8,7 +8,7 @@ import CloseButton from './CloseButton';
 import HelpButton from './HelpButton';
 import VertButton from './VertButton';
 import ProgressBar from './ProgressBar';
-import { useAppDispatch, useAppSelector } from '../../hook';
+import { useAppDispatch, useAppSelector } from '../hooks/hook';
 
 interface IHeader {
   currentNumber: number;
