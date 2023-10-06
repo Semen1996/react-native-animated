@@ -12,10 +12,12 @@ import { useState } from 'react';
 import ButtonDone from '../../components/ButtonDone';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FillingFormStackParamList } from '../../navigation/FillingForm';
 
-function IsQuotaScreen(props: any) {
-  const navigation = props.navigation;
+type Props = NativeStackScreenProps<FillingFormStackParamList, 'IsQuota'>;
 
+function IsQuotaScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
   const petitionId = useAppSelector(state => state.petitions.currentPetition);
 
@@ -29,7 +31,7 @@ function IsQuotaScreen(props: any) {
         value: choice,
       }),
     );
-    navigation.navigate('Мотивы получения РВП');
+    navigation.navigate('Motives');
   }
 
   return (
@@ -69,7 +71,7 @@ function IsQuotaScreen(props: any) {
           choice ?
             <ButtonDone onPress={handleFill}/>
           :
-            <ButtonSkip onPress={() => navigation.navigate('Мотивы получения РВП')} />
+            <ButtonSkip onPress={() => navigation.navigate('Motives')} />
         }
       </View>
     </View>

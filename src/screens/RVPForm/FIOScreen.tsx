@@ -14,10 +14,18 @@ import ButtonDone from '../../components/ButtonDone';
 import FloatingLabelInput from '../../components/FloatingLabelInput';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FillingFormStackParamList } from '../../navigation/FillingForm';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { TabStackParamList } from '../../navigation/BottomTabs';
 
-function FIOScreen(props: any) {
-  const navigation = props.navigation;
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<FillingFormStackParamList, 'FIO'>,
+  BottomTabScreenProps<TabStackParamList>
+>;
 
+function FIOScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
   const petitionId = useAppSelector(state => state.petitions.currentPetition);
 
@@ -51,7 +59,7 @@ function FIOScreen(props: any) {
         value: patronymic,
       }),
     );
-    navigation.navigate('BottomTabs');
+    navigation.navigate('Home');
   }
 
   function handleName(evt: NativeSyntheticEvent<TextInputChangeEventData>): void {
@@ -94,7 +102,7 @@ function FIOScreen(props: any) {
           isFilled ?
             <ButtonDone onPress={handleFill}/>
             :
-            <ButtonSkip onPress={() => navigation.navigate('BottomTabs')} />
+            <ButtonSkip onPress={() => navigation.navigate('Home')} />
         }
       </View>
     </View>

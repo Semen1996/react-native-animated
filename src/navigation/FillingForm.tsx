@@ -6,18 +6,29 @@ import QuestionsScreen from '../screens/QuestionsScreen';
 import StartFillingScreen from '../screens/StartFillingScreen';
 import СitizenshipScreen from '../screens/RVPForm/СitizenshipScreen';
 
-const FillingFormStack = createNativeStackNavigator();
+export type FillingFormStackParamList = {
+  Questions: {readonly title: string}  | undefined;
+  Start: {readonly title: string}  | undefined;
+  Сitizenship: {readonly title: string}  | undefined;
+  IsQuota: {readonly title: string}  | undefined;
+  Motives: {readonly title: string}  | undefined;
+  FIO: {readonly title: string}  | undefined;
+};
+
+const FillingFormStack = createNativeStackNavigator<FillingFormStackParamList>();
 
 function FillingForm() {
   return (
     <FillingFormStack.Navigator
-      initialRouteName="Начальная страница"
+      initialRouteName="Start"
       screenOptions={{
         headerShown: false,
         animation: 'slide_from_right',
       }}>
+      
       <FillingFormStack.Screen
-        name="Список вопросов"
+        name="Questions"
+        initialParams={{title: 'Список вопросов'}}
         component={QuestionsScreen}
         options={{
           presentation: 'modal',
@@ -26,22 +37,30 @@ function FillingForm() {
         }}
       />
       <FillingFormStack.Screen
-        name="Начальная страница"
+        name="Start"
+        initialParams={{title: 'Начальная страница'}}
         component={StartFillingScreen}
       />
       <FillingFormStack.Screen
-        name="Текущее гражданство"
+        name="Сitizenship"
+        initialParams={{title: 'Текущее гражданство'}}
         component={СitizenshipScreen}
       />
       <FillingFormStack.Screen
-        name="Подача заявления с квотой или без"
+        name="IsQuota"
+        initialParams={{title: 'Подача заявления с квотой или без'}}
         component={IsQuotaScreen}
       />
       <FillingFormStack.Screen
-        name="Мотивы получения РВП"
+        name="Motives"
+        initialParams={{title: 'Мотивы получения РВП'}}
         component={MotivesScreen}
       />
-      <FillingFormStack.Screen name="ФИО" component={FIOScreen} />
+      <FillingFormStack.Screen
+        name="FIO"
+        initialParams={{title: 'ФИО'}}
+        component={FIOScreen}
+      />
     </FillingFormStack.Navigator>
   );
 }

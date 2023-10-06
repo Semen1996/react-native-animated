@@ -2,9 +2,12 @@ import {useState} from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import globalStyles from '../styles/globalStyles';
 import CountriesDropDown from '../components/CountriesDropDown';
-function InitialScreen(props: any) {
-  const navigation = props.navigation;
-  
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/Navigator';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'Initial'>;
+
+function InitialScreen({navigation}: Props) {
   return (
     <View style={styles.container}>
       <View>

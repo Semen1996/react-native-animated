@@ -7,9 +7,12 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {addPetitionItem} from '../../store/petitionSlice';
 import {useState} from 'react';
 import ButtonDone from '../../components/ButtonDone';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FillingFormStackParamList } from '../../navigation/FillingForm';
 
-function СitizenshipScreen(props: any) {
-  const navigation = props.navigation;
+type Props = NativeStackScreenProps<FillingFormStackParamList, 'Сitizenship'>;
+
+function СitizenshipScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
   const petitionId = useAppSelector(state => state.petitions.currentPetition);
   const [citizenship, setСitizenship] = useState('');
@@ -22,7 +25,7 @@ function СitizenshipScreen(props: any) {
         value: citizenship,
       }),
     );
-    navigation.navigate('Подача заявления с квотой или без');
+    navigation.navigate('IsQuota');
   }
 
   return (
@@ -41,7 +44,7 @@ function СitizenshipScreen(props: any) {
           <ButtonDone onPress={() => handleFill()} />
         ) : (
           <ButtonSkip
-            onPress={() => navigation.navigate('Подача заявления с квотой или без')}
+            onPress={() => navigation.navigate('IsQuota')}
           />
         )}
       </View>

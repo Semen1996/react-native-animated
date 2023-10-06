@@ -5,17 +5,19 @@ import CountriesDropDown from "../components/CountriesDropDown";
 import BackButton from "../components/BackButton";
 import { useAppDispatch } from "../hooks/hook";
 import { addPetition } from "../store/petitionSlice";
+import { FillingFormStackParamList } from "../navigation/FillingForm";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-function StartFillingScreen(props: any) {
-  const navigation = props.navigation;
+type Props = NativeStackScreenProps<FillingFormStackParamList, 'Start'>;
+
+function StartFillingScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-
   const colorFill = '#FFBEB5';
 
   
   function handleFill() {
     dispatch(addPetition());
-    navigation.navigate('Текущее гражданство')
+    navigation.navigate('Сitizenship')
   };
 
   return (
@@ -54,7 +56,7 @@ function StartFillingScreen(props: any) {
         <TouchableOpacity onPress={handleFill} style={[styles.btn, styles.btnFill]}>
           <Text style={[styles.btnText, styles.btnTextFill]}>Заполнить</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Список вопросов')} style={styles.btn}>
+        <TouchableOpacity onPress={() => navigation.navigate('Questions')} style={styles.btn}>
           <Text style={styles.btnText}>Список вопросов</Text>
         </TouchableOpacity>
         </View>

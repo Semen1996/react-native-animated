@@ -1,10 +1,19 @@
 import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
 import NextIcon from '../images/Icons/navigate_next.svg';
 import { Shadow } from "react-native-shadow-2";
+import { TabStackParamList } from "../navigation/BottomTabs";
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { FillingFormStackParamList } from "../navigation/FillingForm";
+import { RootStackParamList } from "../navigation/Navigator";
 
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<TabStackParamList,'Home'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
-function HomeScreen(props: any) {
-  const navigation = props.navigation;
+function HomeScreen({navigation}: Props) {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>

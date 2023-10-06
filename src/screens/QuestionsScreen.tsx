@@ -10,9 +10,13 @@ import CloseButton from '../components/CloseButton';
 import ProgressBar from '../components/ProgressBar';
 import DoneIcon from '../images/Icons/Done.svg';
 import NotDoneIcon from '../images/Icons/Not_done.svg';
+import { FillingFormStackParamList } from '../navigation/FillingForm';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-function QuestionsScreen(props: any) {
-  const navigation = props.navigation;
+
+type Props = NativeStackScreenProps<FillingFormStackParamList, 'Questions'>;
+
+function QuestionsScreen({navigation, route}: Props) {
   const questions = navigation.getState().routeNames.slice(2);
 
   return (

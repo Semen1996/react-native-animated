@@ -13,9 +13,12 @@ import HeaderFilling from '../../components/HeaderFilling';
 import ButtonDone from '../../components/ButtonDone';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { addPetitionItem } from '../../store/petitionSlice';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FillingFormStackParamList } from '../../navigation/FillingForm';
 
-function MotivesScreen(props: any) {
-  const navigation = props.navigation;
+type Props = NativeStackScreenProps<FillingFormStackParamList, 'Motives'>;
+
+function MotivesScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
   const petitionId = useAppSelector(state => state.petitions.currentPetition);
   const [isFilled, setIsFilled] = useState(false);
@@ -28,7 +31,7 @@ function MotivesScreen(props: any) {
         value: motives,
       }),
     );
-    navigation.navigate('ФИО');
+    navigation.navigate('FIO');
   }
 
   function handleInput(evt: NativeSyntheticEvent<TextInputChangeEventData>): void {
@@ -58,7 +61,7 @@ function MotivesScreen(props: any) {
           isFilled ?
             <ButtonDone onPress={handleFill}/>
             :
-            <ButtonSkip onPress={() => navigation.navigate('ФИО')} />
+            <ButtonSkip onPress={() => navigation.navigate('FIO')} />
         }
       </View>
     </View>

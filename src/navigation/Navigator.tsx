@@ -1,10 +1,18 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import InitialScreen from '../screens/InitialScreen';
 import BottomTabs from './BottomTabs';
 import FillingForm from './FillingForm';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Initial: undefined;
+  BottomTabs: undefined;
+  FillingForm: undefined;
+};
+
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function Navigator() {
   return (
