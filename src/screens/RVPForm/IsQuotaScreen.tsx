@@ -19,20 +19,30 @@ type Props = NativeStackScreenProps<FillingFormStackParamList, 'IsQuota'>;
 
 function IsQuotaScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const petitionId = useAppSelector(state => state.petitions.currentPetition);
+  const petition = useAppSelector(state => state.petitions.currentPetition);
+  const [choice, setChoice] = useState(petition ? petition.questions.hasQuota.value : '');
 
-  const [choice, setChoice] = useState('');
+  function addItem() {
+    if(petition) {
+      dispatch(
+        addPetitionItem({
+          id: petition.id,
+          item: 'hasQuota',
+          value: choice,
+        }),
+      );
+    }
+  }
 
-  function handleFill() {
-    dispatch(
-      addPetitionItem({
-        id: petitionId,
-        item: 'hasQuota',
-        value: choice,
-      }),
-    );
+  function navigate() {
     navigation.navigate('Motives');
   }
+
+  function handleDone() {
+    addItem();
+    navigate();
+  }
+
 
   return (
     <View style={globalStyles.container}>
@@ -69,9 +79,9 @@ function IsQuotaScreen({navigation}: Props) {
         </View>
         {
           choice ?
-            <ButtonDone onPress={handleFill}/>
+            <ButtonDone onPress={handleDone}/>
           :
-            <ButtonSkip onPress={() => navigation.navigate('Motives')} />
+            <ButtonSkip onPress={navigate} />
         }
       </View>
     </View>

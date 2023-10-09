@@ -18,7 +18,7 @@ type Props = NativeStackScreenProps<FillingFormStackParamList, 'Questions'>;
 
 function QuestionsScreen({navigation, route}: Props) {
   const questions = navigation.getState().routeNames.slice(2);
-
+  console.log(navigation.getParent()?.getState())
   return (
     <View style={globalStyles.container}>
       <View style={styles.header}>

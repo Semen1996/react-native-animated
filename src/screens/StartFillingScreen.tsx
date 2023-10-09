@@ -16,7 +16,7 @@ function StartFillingScreen({navigation}: Props) {
 
   
   function handleFill() {
-    dispatch(addPetition());
+    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
     navigation.navigate('Сitizenship')
   };
 

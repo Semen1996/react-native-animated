@@ -31,9 +31,9 @@ const countriesWithFlags = [
 
 function InputDropDown(props: any) {
   const setItem = props.setItem;
-
+  const inputItem = props.inputItem;
   const [countries, setCountries] = useState(countriesWithFlags);
-  const [selectCountry, setSelectCountry] = useState('Выберите гражданство');
+  const [selectCountry, setSelectCountry] = useState(inputItem ? inputItem : 'Выберите гражданство');
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<TextInput | null>(null);

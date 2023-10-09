@@ -45,8 +45,8 @@ function PetitionScreen({navigation}: Props) {
             <TouchableOpacity style={styles.card} key={petition.id}>
               <Text style={styles.cardTitle}>{petition.titleForm}</Text>
               <View style={styles.cardData}>
-                <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.surname} {petition.name} {petition.patronymic}</Text></Text>
-                <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.citizenship}</Text></Text>
+                <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.questions.surname.value} {petition.questions.name.value} {petition.questions.patronymic.value}</Text></Text>
+                <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.questions.citizenship.value}</Text></Text>
                 <Text style={styles.cardDataText}>Дата обновления: <Text style={styles.cardDataTextUser}>01.12.2022</Text></Text>
               </View>
             </TouchableOpacity>
@@ -89,8 +89,8 @@ function PetitionScreen({navigation}: Props) {
             <TouchableOpacity style={styles.card} key={petition.id}>
               <Text style={styles.cardTitle}>{petition.titleForm}</Text>
               <View style={styles.cardData}>
-                <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.surname} {petition.name} {petition.patronymic}</Text></Text>
-                <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.citizenship}</Text></Text>
+              <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.questions.surname.value} {petition.questions.name.value} {petition.questions.patronymic.value}</Text></Text>
+                <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.questions.citizenship.value}</Text></Text>
                 <Text style={styles.cardDataText}>Дата обновления: <Text style={styles.cardDataTextUser}>01.12.2022</Text></Text>
               </View>
             </TouchableOpacity>

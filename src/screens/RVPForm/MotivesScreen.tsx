@@ -12,7 +12,7 @@ import ButtonSkip from '../../components/ButtonSkip';
 import HeaderFilling from '../../components/HeaderFilling';
 import ButtonDone from '../../components/ButtonDone';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
-import { addPetitionItem } from '../../store/petitionSlice';
+import { addPetitionItem, changePetitionItem, fillPetitionItem } from '../../store/petitionSlice';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FillingFormStackParamList } from '../../navigation/FillingForm';
 
@@ -20,27 +20,47 @@ type Props = NativeStackScreenProps<FillingFormStackParamList, 'Motives'>;
 
 function MotivesScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const petitionId = useAppSelector(state => state.petitions.currentPetition);
+  const petition = useAppSelector(state => state.petitions.currentPetition);
   const [isFilled, setIsFilled] = useState(false);
-  const [motives, setMotives] = useState('');
-  function handleFill() {
-    dispatch(
-      addPetitionItem({
-        id: petitionId,
-        item: 'motives',
-        value: motives,
-      }),
-    );
+  const [motives, setMotives] = useState(petition? petition.questions.motives.value : '');
+  function navigate() {
     navigation.navigate('FIO');
+  }
+
+  function setFillInStore() {
+    if(petition) {
+      dispatch(
+        fillPetitionItem({
+          id: petition.id,
+          item: 'motives',
+        }),
+      );
+    }
+  }
+
+  function changeTextInStore(text: string) {
+    if(petition) {
+      dispatch(
+        changePetitionItem({
+          id: petition.id,
+          item: 'motives',
+          value: text,
+        }),
+      );
+    }
   }
 
   function handleInput(evt: NativeSyntheticEvent<TextInputChangeEventData>): void {
     const text = evt.nativeEvent.text;
+    setMotives(text)
+    changeTextInStore(text);
+
     if(text.length >= 5) {
       setIsFilled(true);
-      setMotives(text)
+      setFillInStore();
       return;
     }
+
     setIsFilled(false);
   }
 
@@ -54,14 +74,15 @@ function MotivesScreen({navigation}: Props) {
           inputMode='text'
           maxLength={300}
           multiline={true}
+          value={motives}
           onChange={handleInput}/>
           <Text style={[globalStyles.text, globalStyles.text12Reg, styles.span]}>От 100 до 300 символов</Text>
         </View>
         {
           isFilled ?
-            <ButtonDone onPress={handleFill}/>
+            <ButtonDone onPress={navigate}/>
             :
-            <ButtonSkip onPress={() => navigation.navigate('FIO')} />
+            <ButtonSkip onPress={navigate} />
         }
       </View>
     </View>

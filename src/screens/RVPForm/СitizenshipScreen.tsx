@@ -14,17 +14,22 @@ type Props = NativeStackScreenProps<FillingFormStackParamList, 'Сitizenship'>;
 
 function СitizenshipScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const petitionId = useAppSelector(state => state.petitions.currentPetition);
-  const [citizenship, setСitizenship] = useState('');
+  const [isFill, setIsFill] = useState(false);
+  const petition = useAppSelector(state => state.petitions.currentPetition);
+  function addItem(value: string): void {
+      if(petition) {
+        setIsFill(true);
+        dispatch(
+          addPetitionItem({
+            id: petition.id,
+            item: 'citizenship',
+            value,
+          }),
+        );
+      }
+  }
 
-  function handleFill() {
-    dispatch(
-      addPetitionItem({
-        id: petitionId,
-        item: 'citizenship',
-        value: citizenship,
-      }),
-    );
+  function navigate() {
     navigation.navigate('IsQuota');
   }
 
@@ -34,17 +39,16 @@ function СitizenshipScreen({navigation}: Props) {
         title={'Укажите текущее гражданство заявителя'}
         currentNumber={1}
         navigation={navigation}
-
       />
       <View style={globalStyles.main}>
         <View style={{marginTop: 56}}>
-          <InputDropDown setItem={setСitizenship} />
+          <InputDropDown setItem={addItem} inputItem={petition?.questions.citizenship.value}/>
         </View>
-        {citizenship ? (
-          <ButtonDone onPress={() => handleFill()} />
+        {isFill ? (
+          <ButtonDone onPress={navigate} />
         ) : (
           <ButtonSkip
-            onPress={() => navigation.navigate('IsQuota')}
+            onPress={navigate}
           />
         )}
       </View>
