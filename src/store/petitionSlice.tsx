@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-type Petition = {
+export type IPetition = {
   readonly id: string;
   isFill: boolean;
   progress: number;
@@ -16,7 +16,7 @@ type Petition = {
 
 type PetitionsState = {
   currentPetition: string;
-  list: Petition[];
+  list: IPetition[];
 };
 
 const initialState: PetitionsState = {
@@ -30,7 +30,6 @@ const petitionSlice = createSlice({
   reducers: {
     addPetition(state) {
       const idPetition = new Date().toISOString();
-      console.log('v')
       state.list.push({
         isFill: false,
         length: 6,
@@ -47,7 +46,7 @@ const petitionSlice = createSlice({
 
       state.currentPetition = idPetition;
     },
-    addPetitionItem<K extends keyof Petition, V extends Petition[K]>(
+    addPetitionItem<K extends keyof IPetition, V extends IPetition[K]>(
       state: PetitionsState,
       action: PayloadAction<{id: string; item: K; value: V}>,
     ) {

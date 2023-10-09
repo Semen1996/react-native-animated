@@ -2,15 +2,20 @@ import { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
 import { Rect, Svg } from "react-native-svg";
 import { useAppSelector } from "../hooks/hook";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { TabStackParamList } from "../navigation/BottomTabs";
+import { IPetition } from "../store/petitionSlice";
 
-function PetitionScreen(props: any) {
+type Props = BottomTabScreenProps<TabStackParamList, 'Petitions'>;
+
+function PetitionScreen({navigation}: Props) {
   const [isOpen1, setIsOpen1] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
 
   const petitions = useAppSelector(state => state.petitions.list);
 
-  let petitionsReady = [];
-  let petitionsProcess = [];
+  let petitionsReady: IPetition[] = [];
+  let petitionsProcess: IPetition[] = [];
   petitions.forEach((petition) => {
     if(petition.isFill) {
       petitionsReady.push(petition)
@@ -19,7 +24,6 @@ function PetitionScreen(props: any) {
     }
   });
 
-  const navigation = props.navigation;
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -53,7 +57,7 @@ function PetitionScreen(props: any) {
           <Text style={styles.cardEmptyText}>У вас пока нет заявлений</Text>
           <TouchableOpacity
             style={styles.cardEmptyBtn}
-            onPress={() => navigation.navigate('Главная')}
+            onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.cardEmptyBtnText}>Заполнить заявление</Text>
           </TouchableOpacity>
@@ -97,7 +101,7 @@ function PetitionScreen(props: any) {
           <Text style={styles.cardEmptyText}>У вас пока нет заявлений</Text>
           <TouchableOpacity
             style={styles.cardEmptyBtn}
-            onPress={() => navigation.navigate('Главная')}
+            onPress={() => navigation.navigate('Home')}
           >
             <Text style={styles.cardEmptyBtnText}>Заполнить заявление</Text>
           </TouchableOpacity>
