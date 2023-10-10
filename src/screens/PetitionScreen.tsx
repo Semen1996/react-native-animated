@@ -5,6 +5,11 @@ import { useAppSelector } from "../hooks/hook";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { TabStackParamList } from "../navigation/BottomTabs";
 import { IPetition } from "../store/petitionSlice";
+import PointPetition from "../components/PetitionScreen/PointPetition";
+import colors from "../utils/colors";
+import globalStyles from "../styles/globalStyles";
+import ProgressBar from "../components/PetitionScreen/ProgressBar";
+import Point from "../components/PetitionScreen/Point";
 
 type Props = BottomTabScreenProps<TabStackParamList, 'Petitions'>;
 
@@ -13,6 +18,20 @@ function PetitionScreen({navigation}: Props) {
   const [isOpen2, setIsOpen2] = useState(false);
 
   const petitions = useAppSelector(state => state.petitions.list);
+
+  function determineСolor(titleForm: string): string {
+    let color: string;
+    if(titleForm === 'Заявление о выдаче РВП') {
+      color = colors.pink;
+    } else if(titleForm === 'Заявление на Гражданство РФ') {
+      color = colors.purple;
+    } else if(titleForm === 'Заявление о выдаче ВНЖ') {
+      color = colors.yellow;
+    } else {
+      color = colors.green;
+    }
+    return color;
+  }
 
   let petitionsReady: IPetition[] = [];
   let petitionsProcess: IPetition[] = [];
@@ -34,20 +53,31 @@ function PetitionScreen({navigation}: Props) {
         style={[styles.btnList, isOpen1 && styles.btnListOn]}
         onPress={() => setIsOpen1(!isOpen1)}
       >
-        <Text style={styles.btnListTitle}>В процессе</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Point isFill={false}/>
+          <Text style={styles.btnListTitle}>В процессе</Text>
+        </View>
         <Text style={styles.btnListSumm}>{petitionsProcess.length}</Text>
       </TouchableOpacity>
       <View style={!isOpen1 && styles.cardHide}>
         {
           petitionsProcess.length ?
           petitionsProcess.map(petition => {
+            const procent = Math.floor(petition.progress/petition.length*100);
+            const colorItem = determineСolor(petition.titleForm);
             return(
             <TouchableOpacity style={styles.card} key={petition.id}>
-              <Text style={styles.cardTitle}>{petition.titleForm}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <PointPetition color={colorItem}/>
+                <Text style={[globalStyles.text, globalStyles.text16Med, {paddingLeft: 12}]}>{petition.titleForm}</Text>
+              </View>
               <View style={styles.cardData}>
                 <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.questions.surname.value} {petition.questions.name.value} {petition.questions.patronymic.value}</Text></Text>
                 <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.questions.citizenship.value}</Text></Text>
                 <Text style={styles.cardDataText}>Дата обновления: <Text style={styles.cardDataTextUser}>01.12.2022</Text></Text>
+              </View>
+              <View style={{marginTop: 6}}>
+                <ProgressBar procent={procent}/>
               </View>
             </TouchableOpacity>
             )
@@ -77,7 +107,10 @@ function PetitionScreen({navigation}: Props) {
         style={[styles.btnList, isOpen2 && styles.btnListOn]}
         onPress={() => setIsOpen2(!isOpen2)}
         >
-        <Text style={styles.btnListTitle}>Готовые</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Point isFill={true}/>
+          <Text style={styles.btnListTitle}>Готовые</Text>
+        </View>
         <Text style={styles.btnListSumm}>{petitionsReady.length}</Text>
       </TouchableOpacity>
       <View style={!isOpen2 && styles.cardHide}>
@@ -85,13 +118,22 @@ function PetitionScreen({navigation}: Props) {
           petitionsReady.length ?
 
           petitionsReady.map(petition => {
+            const procent = Math.floor(petition.progress/petition.length*100);
+            const colorItem = determineСolor(petition.titleForm);
+
             return(
             <TouchableOpacity style={styles.card} key={petition.id}>
-              <Text style={styles.cardTitle}>{petition.titleForm}</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <PointPetition color={colorItem}/>
+                <Text style={[globalStyles.text, globalStyles.text16Med, {paddingLeft: 12}]}>{petition.titleForm}</Text>
+              </View>
               <View style={styles.cardData}>
-              <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.questions.surname.value} {petition.questions.name.value} {petition.questions.patronymic.value}</Text></Text>
+                <Text style={styles.cardDataText}>ФИО: <Text style={styles.cardDataTextUser}>{petition.questions.surname.value} {petition.questions.name.value} {petition.questions.patronymic.value}</Text></Text>
                 <Text style={styles.cardDataText}>Гражданство: <Text style={styles.cardDataTextUser}>{petition.questions.citizenship.value}</Text></Text>
                 <Text style={styles.cardDataText}>Дата обновления: <Text style={styles.cardDataTextUser}>01.12.2022</Text></Text>
+              </View>
+              <View style={{marginTop: 6}}>
+                <ProgressBar procent={procent}/>
               </View>
             </TouchableOpacity>
             )
@@ -151,6 +193,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAE6FF',
   },
   btnListTitle: {
+    marginLeft: 12,
     fontFamily: 'Roboto',
     fontSize: 14,
     fontWeight: '600',
@@ -208,6 +251,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   cardTitle: {
+
     fontFamily: 'Roboto',
     fontSize: 16,
     fontWeight: '500',
