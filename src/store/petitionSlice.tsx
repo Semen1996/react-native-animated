@@ -116,7 +116,7 @@ const petitionSlice = createSlice({
             title: 'ФИО',
             screen: 'FIO',
             value: '',
-            isFill: false,
+            isFill: true,
           },
         },
       }

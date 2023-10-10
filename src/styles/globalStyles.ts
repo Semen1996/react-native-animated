@@ -28,6 +28,11 @@ const globalStyles = StyleSheet.create({
     fontWeight: '500',
     lineHeight: 19.6,
   },
+  text14Reg: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 20,
+  },
   text16Med: {
     fontSize: 16,
     fontWeight: '500',
