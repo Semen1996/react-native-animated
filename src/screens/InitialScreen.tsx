@@ -8,6 +8,10 @@ import { RootStackParamList } from '../navigation/Navigator';
 type Props = NativeStackScreenProps<RootStackParamList, 'Initial'>;
 
 function InitialScreen({navigation}: Props) {
+  function clickBegin() {
+    navigation.navigate('BottomTabs');
+  }
+
   return (
     <View style={styles.container}>
       <View>
@@ -34,7 +38,7 @@ function InitialScreen({navigation}: Props) {
       </View>
       <TouchableOpacity
       style={styles.startBtn}
-      onPress={() => navigation.navigate('BottomTabs')}
+      onPress={clickBegin}
       >
         <Text style={[globalStyles.text, styles.startBtnTxt]}>Начать</Text>
       </TouchableOpacity>
