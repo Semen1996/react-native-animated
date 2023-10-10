@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 type IQuetionsRVP = {
   citizenship: {
     title: string;
-    screen: string;
+    screen: 'Сitizenship';
     value: string;
     isFill: boolean;
   };
