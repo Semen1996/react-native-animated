@@ -20,6 +20,11 @@ function StartFillingScreen({navigation}: Props) {
     navigation.navigate('Сitizenship')
   };
 
+  function clickQuestions() {
+    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
+    navigation.navigate('Questions');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -56,7 +61,7 @@ function StartFillingScreen({navigation}: Props) {
         <TouchableOpacity onPress={handleFill} style={[styles.btn, styles.btnFill]}>
           <Text style={[styles.btnText, styles.btnTextFill]}>Заполнить</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Questions')} style={styles.btn}>
+        <TouchableOpacity onPress={clickQuestions} style={styles.btn}>
           <Text style={styles.btnText}>Список вопросов</Text>
         </TouchableOpacity>
         </View>

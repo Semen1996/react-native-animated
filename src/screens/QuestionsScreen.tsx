@@ -12,13 +12,22 @@ import DoneIcon from '../images/Icons/Done.svg';
 import NotDoneIcon from '../images/Icons/Not_done.svg';
 import { FillingFormStackParamList } from '../navigation/FillingForm';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAppSelector } from '../hooks/hook';
 
 
 type Props = NativeStackScreenProps<FillingFormStackParamList, 'Questions'>;
 
-function QuestionsScreen({navigation, route}: Props) {
-  const questions = navigation.getState().routeNames.slice(2);
-  console.log(navigation.getParent()?.getState())
+function QuestionsScreen({navigation}: Props) {
+  const questions = useAppSelector(state => {
+    const obj = state.petitions.currentPetition?.questions
+    if(obj) {
+      return Object.entries(obj);
+    }
+    return [];
+  });
+
+  console.log(navigation);
+
   return (
     <View style={globalStyles.container}>
       <View style={styles.header}>
@@ -30,13 +39,21 @@ function QuestionsScreen({navigation, route}: Props) {
       <FlatList
         data={questions}
         renderItem={({item, index}) => {
+          const newItem = item[1];
+          const screen = newItem.screen;
           return (
-            <TouchableOpacity onPress={() => navigation.navigate(item)} style={styles.item}>
+            <TouchableOpacity onPress={() => navigation.navigate('IsQuota')} style={styles.item}>
               <View style={{flexDirection: 'row'}}>
                 <Text  style={[globalStyles.text, globalStyles.text14Med, styles.itemIndex]}>{index+1}</Text>
-                <Text style={[globalStyles.text, globalStyles.text14Med]}>{item}</Text>
+                <Text style={[globalStyles.text, globalStyles.text14Med]}>{newItem.title}</Text>
               </View>
-              <NotDoneIcon width={32} height={32}/>
+              {
+                newItem.isFill ?
+                <DoneIcon width={32} height={32}/>
+                :
+                <NotDoneIcon width={32} height={32}/>
+              }
+              
             </TouchableOpacity>
           )
         }}

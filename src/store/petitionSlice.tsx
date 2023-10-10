@@ -9,31 +9,31 @@ type IQuetionsRVP = {
   };
   hasQuota: {
     title: string;
-    screen: string;
+    screen: 'IsQuota';
     value: string;
     isFill: boolean;
   };
   motives: {
     title: string;
-    screen: string;
+    screen: 'Motives';
     value: string;
     isFill: boolean;
   };
   name: {
     title: string;
-    screen: string;
+    screen: 'FIO';
     value: string;
     isFill: boolean;
   };
   surname: {
     title: string;
-    screen: string;
+    screen: 'FIO';
     value: string;
     isFill: boolean;
   };
   patronymic: {
     title: string;
-    screen: string;
+    screen: 'FIO';
     value: string;
     isFill: boolean;
   };
@@ -76,7 +76,7 @@ const petitionSlice = createSlice({
     addPetition(state: PetitionsState,
       action: PayloadAction<{titleForm: string}>) {
       const idPetition = new Date().toISOString();
-      const newPetition = {
+      const newPetition: IPetition = {
         isFill: false,
         length: 6,
         progress: 0,

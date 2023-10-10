@@ -18,8 +18,8 @@ interface IHeader {
 
 function HeaderFilling({currentNumber, title, navigation}: IHeader) {
   const procentFilling = useAppSelector(state => {
-    const petition = state.petitions.list.find(petition => petition.id === state.petitions.currentPetition);
-    if(petition) return Math.floor(petition.progress/petition.length*100);
+    const petition = state.petitions.currentPetition;
+    if(petition) return petition.procent;
     return 0;
   });
 
@@ -27,14 +27,14 @@ function HeaderFilling({currentNumber, title, navigation}: IHeader) {
     <>
       <View style={styles.header}>
         <View style={styles.headersBtns}>
-          <CloseButton onPress={() => navigation.navigate('Заявления')}/>
+          <CloseButton onPress={() => navigation.navigate('Petitions')}/>
         </View>
         <Text style={[globalStyles.text, globalStyles.text18Mediun]}>
           {currentNumber}<Text style={{color: '#7B7B7B'}}>/40</Text>
         </Text>
         <View style={styles.headersBtns}>
           <HelpButton />
-          <VertButton onPress={() => navigation.navigate("Список вопросов")}/>
+          <VertButton onPress={() => navigation.push('Questions')}/>
         </View>
       </View>
       <View style={{paddingHorizontal: 16}}>
