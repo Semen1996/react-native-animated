@@ -46,6 +46,7 @@ export type IPetition = {
   isFill: boolean;
   progress: number;
   length: number;
+  procent: number;
   titleForm: string;
   questions: IQuetions;
 };
@@ -79,6 +80,7 @@ const petitionSlice = createSlice({
         isFill: false,
         length: 6,
         progress: 0,
+        procent: 0,
         id: idPetition,
         titleForm: action.payload.titleForm,
         questions: {
@@ -138,6 +140,8 @@ const petitionSlice = createSlice({
         petition.questions[item].value = value;
         petition.questions[item].isFill = true;
         petition.progress = countProgress(petition.questions);
+        petition.procent = Math.floor(petition.length / petition.progress* 100);
+        petition.isFill = (petition.procent === 100);
       } else {
         console.log('Вызвать метод addPetition');
       }
@@ -156,6 +160,8 @@ const petitionSlice = createSlice({
         petition.questions[item].value = value;
         petition.questions[item].isFill = false;
         petition.progress = countProgress(petition.questions);
+        petition.procent = Math.floor(petition.length / petition.progress* 100);
+        petition.isFill = (petition.procent === 100);
       } else {
         console.log('Вызвать метод addPetition');
       }
@@ -171,6 +177,8 @@ const petitionSlice = createSlice({
       if (petition) {
         petition.questions[item].isFill = true;
         petition.progress = countProgress(petition.questions);
+        petition.procent = Math.floor(petition.length / petition.progress* 100);
+        petition.isFill = (petition.procent === 100);
       } else {
         console.log('Вызвать метод addPetition');
       }
