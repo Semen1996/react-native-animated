@@ -9,10 +9,8 @@ function ProgressBar({procent}: IProcent) {
 
   return (
     <View style={styles.progressBar}>
-      <View
-        style={styles.bar}>
-        <View
-          style={[styles.barLine, {width: `${procent}%`}]}></View>
+      <View style={styles.bar}>
+        <View style={[styles.barLine, {width: `${procent}%`}]}></View>
       </View>
       <View style={styles.barProcent}>
         <Text style={[globalStyles.text, globalStyles.text16Med]}>{procent}%</Text>
