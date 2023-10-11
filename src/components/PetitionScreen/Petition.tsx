@@ -46,7 +46,7 @@ function Petition({petition}: {petition: IPetition}) {
         </Text>
         <Text style={[globalStyles.text, globalStyles.text14Reg, styles.cardDataText]}>
           Дата обновления:{' '}
-          <Text style={[globalStyles.text, globalStyles.text14Med]}>01.12.2022</Text>
+          <Text style={[globalStyles.text, globalStyles.text14Med]}>{petition.items.update}</Text>
         </Text>
       </View>
       <View style={{marginTop: 6}}>

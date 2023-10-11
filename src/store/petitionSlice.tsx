@@ -30,6 +30,7 @@ type IItemsAny = {
 };
 
 type IItemsRVP = {
+  update: string,
   citizenship: string;
   hasQuota: string;
   motives: string;
@@ -70,6 +71,11 @@ function countProgress(questions: IQuetions): number {
   return progress
 }
 
+function countUpdateTime(): string {
+  const date = new Date();
+  return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()+1}`
+}
+
 const petitionSlice = createSlice({
   name: 'petitions',
   initialState,
@@ -107,6 +113,7 @@ const petitionSlice = createSlice({
           },
         },
         items: {
+          update: '',
           citizenship: '',
           hasQuota: '',
           motives: '',
@@ -131,8 +138,6 @@ const petitionSlice = createSlice({
         petition.progress = countProgress(petition.questions);
         petition.procent = Math.floor(petition.length / petition.progress* 100);
         petition.isFill = (petition.procent === 100);
-        console.log('z')
-        console.log(petition.questions[question].isFill)
       } else {
         console.log('Вызвать метод addPetition');
       }
@@ -145,8 +150,7 @@ const petitionSlice = createSlice({
       const petition = state.list.find(p => p.id === id);
       if (petition) {
         petition.items[item] = value;
-        console.log('v')
-        console.log(petition.items[item])
+        petition.items.update = countUpdateTime();
       }
     }
   },
