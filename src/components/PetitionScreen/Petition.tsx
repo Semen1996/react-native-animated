@@ -11,11 +11,11 @@ function Petition({petition}: {petition: IPetition}) {
     if(titleForm === 'Заявление о выдаче РВП') {
       color = colors.pink;
     } else if(titleForm === 'Заявление на Гражданство РФ') {
-      color = colors.purple;
+      color = colors.green;
     } else if(titleForm === 'Заявление о выдаче ВНЖ') {
       color = colors.yellow;
     } else {
-      color = colors.green;
+      color = colors.purple;
     }
     return color;
   }
@@ -46,7 +46,7 @@ function Petition({petition}: {petition: IPetition}) {
         </Text>
         <Text style={[globalStyles.text, globalStyles.text14Reg, styles.cardDataText]}>
           Дата обновления:{' '}
-          <Text style={[globalStyles.text, globalStyles.text14Med]}>{petition.items.update}</Text>
+          <Text style={[globalStyles.text, globalStyles.text14Med]}>{petition.update}</Text>
         </Text>
       </View>
       <View style={{marginTop: 6}}>

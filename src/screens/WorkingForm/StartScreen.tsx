@@ -7,20 +7,21 @@ import { useAppDispatch } from "../../hooks/hook";
 import { addPetition } from "../../store/petitionSlice";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { WorkingFormStackParamList } from "../../navigation/WorkingForm";
+import colors from "../../utils/colors";
 
 type Props = NativeStackScreenProps<WorkingFormStackParamList, 'Start'>;
 
 function StartScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const colorFill = '#FFBEB5';
+  const colorFill = colors.purple;
 
   function handleFill() {
-    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
-    // navigation.navigate('Сitizenship')
+    dispatch(addPetition({titleForm: 'Оформление патента на работу'}));
+    navigation.navigate('FIO');
   };
 
   function clickQuestions() {
-    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
+    dispatch(addPetition({titleForm: 'Оформление патента на работу'}));
     navigation.navigate('Questions');
   }
 
@@ -35,7 +36,7 @@ function StartScreen({navigation}: Props) {
         <Text style={styles.title}>Заявление о выдаче Разрешения на временное проживание (РВП)</Text>
         <View style={[styles.price, {backgroundColor: colorFill}]}>
           <MoneyIcon width={18} height={18} />
-          <Text style={styles.priceCount}>499 Р</Text>
+          <Text style={styles.priceCount}>399 Р</Text>
         </View>
         <View style={styles.list}>
           <View style={styles.listItem}>

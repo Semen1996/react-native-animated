@@ -7,12 +7,13 @@ import { useAppDispatch } from "../../hooks/hook";
 import { addPetition } from "../../store/petitionSlice";
 import { RVPFormStackParamList } from "../../navigation/RVPForm";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import colors from "../../utils/colors";
 
 type Props = NativeStackScreenProps<RVPFormStackParamList, 'Start'>;
 
 function StartScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const colorFill = '#FFBEB5';
+  const colorFill = colors.pink;
 
   function handleFill() {
     dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));

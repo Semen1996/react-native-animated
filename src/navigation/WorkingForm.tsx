@@ -1,10 +1,12 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import QuestionsScreen from '../screens/RVPForm/QuestionsScreen';
-import StartScreen from '../screens/RVPForm/StartScreen';
+import FIOScreen from '../screens/WorkingForm/FIOScreen';
+import QuestionsScreen from '../screens/WorkingForm/QuestionsScreen';
+import StartScreen from '../screens/WorkingForm/StartScreen';
 
 export type WorkingFormStackParamList = {
   Questions: {readonly title: string}  | undefined;
   Start: {readonly title: string}  | undefined;
+  FIO: {readonly title: string}  | undefined;
 };
 
 const WorkingFormStack = createNativeStackNavigator<WorkingFormStackParamList>();
@@ -32,6 +34,11 @@ function WorkingForm() {
         name="Start"
         initialParams={{title: 'Начальная страница'}}
         component={StartScreen}
+      />
+      <WorkingFormStack.Screen
+        name="FIO"
+        initialParams={{title: 'ФИО'}}
+        component={FIOScreen}
       />
     </WorkingFormStack.Navigator>
   );

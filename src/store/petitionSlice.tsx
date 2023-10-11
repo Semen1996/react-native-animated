@@ -1,46 +1,22 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { IItemsRVP, IQuetionsRVP, itemsRVP, questionsRVP } from '../utils/RVPFormTemp';
+import { itemsWorking, questionsWorking } from '../utils/WorkingFormTemp';
 
-type IQuetionsRVP = {
-  citizenship: {
+
+type IQuetionsAny = {
+  [key: string]: {
     title: string;
-    screen: 'Сitizenship';
-    isFill: boolean;
-  };
-  hasQuota: {
-    title: string;
-    screen: 'IsQuota';
-    isFill: boolean;
-  };
-  motives: {
-    title: string;
-    screen: 'Motives';
-    isFill: boolean;
-  };
-  FIO: {
-    title: string;
-    screen: 'FIO';
+    screen: string;
     isFill: boolean;
   };
 };
-
-type IQuetions = IQuetionsRVP;
 
 type IItemsAny = {
-  [key: string]: string | boolean;
+  [key: string]: string;
 };
 
-type IItemsRVP = {
-  update: string,
-  citizenship: string;
-  hasQuota: string;
-  motives: string;
-  name: string;
-  surname: string;
-  patronymic: string;
-};
-
-type IItems = IItemsRVP;
-
+type IQuetions = IQuetionsRVP | IQuetionsAny;
+type IItems = IItemsRVP | IItemsAny;
 
 export type IPetition = {
   readonly id: string;
@@ -48,6 +24,7 @@ export type IPetition = {
   progress: number;
   length: number;
   procent: number;
+  update: string;
   titleForm: string;
   questions: IQuetions;
   items: IItems;
@@ -83,45 +60,31 @@ const petitionSlice = createSlice({
     addPetition(state: PetitionsState,
       action: PayloadAction<{titleForm: string}>) {
       const idPetition = new Date().toISOString();
+
+      const titleForm = action.payload.titleForm;
+      let questions = {};
+      let items = {};
+
+      if(titleForm === 'Заявление о выдаче РВП') {
+        questions = questionsRVP;
+        items = itemsRVP;
+      } else if(titleForm === 'Оформление патента на работу') {
+        questions = questionsWorking;
+        items = itemsWorking;
+      }
+
       const newPetition: IPetition = {
         isFill: false,
-        length: 4,
+        length: Object.keys(questions).length,
         progress: 0,
         procent: 0,
         id: idPetition,
-        titleForm: action.payload.titleForm,
-        questions: {
-          citizenship: {
-            title: 'Текущее гражданство',
-            screen: 'Сitizenship',
-            isFill: false,
-          },
-          hasQuota: {
-            title: 'Подача заявления с квотой или без',
-            screen: 'IsQuota',
-            isFill: false,
-          },
-          motives: {
-            title: 'Мотивы получения РВП',
-            screen: 'Motives',
-            isFill: false,
-          },
-          FIO: {
-            title: 'ФИО',
-            screen: 'FIO',
-            isFill: false,
-          },
-        },
-        items: {
-          update: '',
-          citizenship: '',
-          hasQuota: '',
-          motives: '',
-          name: '',
-          surname: '',
-          patronymic: ''
-        },
-      }
+        update: '',
+        titleForm: titleForm,
+        questions,
+        items
+      };
+
       state.list.push(newPetition);
       state.currentID = idPetition;
     },
@@ -150,7 +113,7 @@ const petitionSlice = createSlice({
       const petition = state.list.find(p => p.id === id);
       if (petition) {
         petition.items[item] = value;
-        petition.items.update = countUpdateTime();
+        petition.update = countUpdateTime();
       }
     }
   },
