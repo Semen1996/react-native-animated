@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import { IItemsRVP, IQuetionsRVP, itemsRVP, questionsRVP } from '../utils/RVPFormTemp';
 import { itemsWorking, questionsWorking } from '../utils/WorkingFormTemp';
 
-
 type IQuetionsAny = {
   [key: string]: {
     title: string;
@@ -99,7 +98,7 @@ const petitionSlice = createSlice({
       if (petition) {
         petition.questions[question].isFill = isFill;
         petition.progress = countProgress(petition.questions);
-        petition.procent = Math.floor(petition.length / petition.progress* 100);
+        petition.procent = Math.floor( petition.progress / petition.length * 100);
         petition.isFill = (petition.procent === 100);
       } else {
         console.log('Вызвать метод addPetition');

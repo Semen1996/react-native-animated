@@ -17,11 +17,18 @@ interface IHeader {
 };
 
 function HeaderFilling({currentNumber, title, navigation}: IHeader) {
-  const procentFilling = useAppSelector(state => {
-    const petition = state.petitions.currentPetition;
-    if(petition) return petition.procent;
-    return 0;
+  const petition = useAppSelector(state => {
+    const id = state.petitions.currentID;
+    return state.petitions.list.find(p => p.id === id);
   });
+
+  let procentFilling = 0;
+  let numOfPages = 0;
+  if(petition) {
+    procentFilling = petition.procent;
+    numOfPages = petition.length;
+  }
+
 
   return (
     <>
@@ -30,7 +37,7 @@ function HeaderFilling({currentNumber, title, navigation}: IHeader) {
           <CloseButton onPress={() => navigation.navigate('Petitions')}/>
         </View>
         <Text style={[globalStyles.text, globalStyles.text18Mediun]}>
-          {currentNumber}<Text style={{color: '#7B7B7B'}}>/40</Text>
+          {currentNumber}<Text style={{color: '#7B7B7B'}}>/{numOfPages}</Text>
         </Text>
         <View style={styles.headersBtns}>
           <HelpButton />
