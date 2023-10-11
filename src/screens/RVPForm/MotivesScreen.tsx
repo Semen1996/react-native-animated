@@ -14,9 +14,9 @@ import ButtonDone from '../../components/ButtonDone';
 import { useAppDispatch, useAppSelector } from '../../hooks/hook';
 import { changeItem, changePetition } from '../../store/petitionSlice';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FillingFormStackParamList } from '../../navigation/FillingForm';
+import { RVPFormStackParamList } from '../../navigation/RVPForm';
 
-type Props = NativeStackScreenProps<FillingFormStackParamList, 'Motives'>;
+type Props = NativeStackScreenProps<RVPFormStackParamList, 'Motives'>;
 
 function MotivesScreen({navigation}: Props) {
   const dispatch = useAppDispatch();

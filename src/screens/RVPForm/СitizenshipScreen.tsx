@@ -8,9 +8,9 @@ import {changeItem, changePetition} from '../../store/petitionSlice';
 import {useState} from 'react';
 import ButtonDone from '../../components/ButtonDone';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FillingFormStackParamList } from '../../navigation/FillingForm';
+import { RVPFormStackParamList } from '../../navigation/RVPForm';
 
-type Props = NativeStackScreenProps<FillingFormStackParamList, 'Сitizenship'>;
+type Props = NativeStackScreenProps<RVPFormStackParamList, 'Сitizenship'>;
 
 function СitizenshipScreen({navigation}: Props) {
   const dispatch = useAppDispatch();

@@ -14,13 +14,13 @@ import FloatingLabelInput from '../../components/FloatingLabelInput';
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {changeItem, changePetition} from '../../store/petitionSlice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FillingFormStackParamList} from '../../navigation/FillingForm';
+import {RVPFormStackParamList} from '../../navigation/RVPForm';
 import {CompositeScreenProps} from '@react-navigation/native';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {TabStackParamList} from '../../navigation/BottomTabs';
 
 type Props = CompositeScreenProps<
-  NativeStackScreenProps<FillingFormStackParamList, 'FIO'>,
+  NativeStackScreenProps<RVPFormStackParamList, 'FIO'>,
   BottomTabScreenProps<TabStackParamList>
 >;
 
