@@ -79,7 +79,7 @@ const petitionSlice = createSlice({
       const idPetition = new Date().toISOString();
       const newPetition: IPetition = {
         isFill: false,
-        length: 6,
+        length: 4,
         progress: 0,
         procent: 0,
         id: idPetition,
