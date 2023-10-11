@@ -5,7 +5,6 @@ import { TabStackParamList } from "../navigation/BottomTabs";
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FillingFormStackParamList } from "../navigation/FillingForm";
 import { RootStackParamList } from "../navigation/Navigator";
 
 type Props = CompositeScreenProps<
