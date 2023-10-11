@@ -19,7 +19,7 @@ function HomeScreen({navigation}: Props) {
         <Image style={styles.logo} source={require('../images/logo.png')} />
       </View>
         <Shadow startColor={'#1C1C1C1A'} offset={[0, 4]} style={{marginBottom: 16, width: '100%'}}>
-          <TouchableOpacity style={[styles.card, styles.cardColorPurple]}>
+          <TouchableOpacity onPress={() => navigation.navigate('WorkingForm')} style={[styles.card, styles.cardColorPurple]}>
             <Text style={styles.cardTitle}>Оформление патента на работу</Text>
             <Text style={styles.cardText}>Разрешение на работу для иностранцев, которым не требуется въездная виза</Text>
             <View style={styles.cardFooter}>
