@@ -5,14 +5,14 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import globalStyles from '../styles/globalStyles';
-import CloseButton from '../components/CloseButton';
-import ProgressBar from '../components/ProgressBar';
-import DoneIcon from '../images/Icons/Done.svg';
-import NotDoneIcon from '../images/Icons/Not_done.svg';
-import { RVPFormStackParamList } from '../navigation/RVPForm';
+import globalStyles from '../../styles/globalStyles';
+import CloseButton from '../../components/CloseButton';
+import ProgressBar from '../../components/ProgressBar';
+import DoneIcon from '../../images/Icons/Done.svg';
+import NotDoneIcon from '../../images/Icons/Not_done.svg';
+import { RVPFormStackParamList } from '../../navigation/RVPForm';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAppSelector } from '../hooks/hook';
+import { useAppSelector } from '../../hooks/hook';
 
 
 type Props = NativeStackScreenProps<RVPFormStackParamList, 'Questions'>;

@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import QuestionsScreen from '../screens/QuestionsScreen';
+import QuestionsScreen from '../screens/RVPForm/QuestionsScreen';
 import StartScreen from '../screens/RVPForm/StartScreen';
 
 export type WorkingFormStackParamList = {

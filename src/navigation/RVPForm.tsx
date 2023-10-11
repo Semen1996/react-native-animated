@@ -2,7 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FIOScreen from '../screens/RVPForm/FIOScreen';
 import IsQuotaScreen from '../screens/RVPForm/IsQuotaScreen';
 import MotivesScreen from '../screens/RVPForm/MotivesScreen';
-import QuestionsScreen from '../screens/QuestionsScreen';
+import QuestionsScreen from '../screens/RVPForm/QuestionsScreen';
 import StartScreen from '../screens/RVPForm/StartScreen';
 import СitizenshipScreen from '../screens/RVPForm/СitizenshipScreen';
 
