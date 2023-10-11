@@ -35,14 +35,13 @@ function Petition({petition}: {petition: IPetition}) {
         <Text style={[globalStyles.text, globalStyles.text14Reg, styles.cardDataText]}>
           ФИО:{' '}
           <Text style={[globalStyles.text, globalStyles.text14Med]}>
-            {petition.questions.surname.value} {petition.questions.name.value}{' '}
-            {petition.questions.patronymic.value}
+            {petition.items.surname} {petition.items.name} {petition.items.patronymic}
           </Text>
         </Text>
         <Text style={[globalStyles.text, globalStyles.text14Reg, styles.cardDataText]}>
           Гражданство:{' '}
           <Text style={[globalStyles.text, globalStyles.text14Med]}>
-            {petition.questions.citizenship.value}
+            {petition.items.citizenship}
           </Text>
         </Text>
         <Text style={[globalStyles.text, globalStyles.text14Reg, styles.cardDataText]}>
