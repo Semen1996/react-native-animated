@@ -5,10 +5,10 @@ import CountriesDropDown from "../../components/CountriesDropDown";
 import BackButton from "../../components/BackButton";
 import { useAppDispatch } from "../../hooks/hook";
 import { addPetition } from "../../store/petitionSlice";
-import { FillingFormStackParamList } from "../../navigation/FillingForm";
+import { RVPFormStackParamList } from "../../navigation/RVPForm";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-type Props = NativeStackScreenProps<FillingFormStackParamList, 'Start'>;
+type Props = NativeStackScreenProps<RVPFormStackParamList, 'Start'>;
 
 function StartScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
