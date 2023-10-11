@@ -2,7 +2,6 @@ import {
   NativeSyntheticEvent,
   StyleSheet,
   Text,
-  TextInput,
   TextInputChangeEventData,
   View,
 } from 'react-native';
@@ -13,7 +12,7 @@ import HeaderFilling from '../../components/HeaderFilling';
 import ButtonDone from '../../components/ButtonDone';
 import FloatingLabelInput from '../../components/FloatingLabelInput';
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
-import {addPetitionItem, changePetitionItem, fillPetitionItem} from '../../store/petitionSlice';
+import {changeItem, changePetition} from '../../store/petitionSlice';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FillingFormStackParamList} from '../../navigation/FillingForm';
 import {CompositeScreenProps} from '@react-navigation/native';
@@ -27,12 +26,29 @@ type Props = CompositeScreenProps<
 
 function FIOScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const petition = useAppSelector(state => state.petitions.currentPetition);
+  const petition = useAppSelector(state => {
+    const id = state.petitions.currentID;
+    return state.petitions.list.find(p => p.id === id);
+  });
 
-  const [isValid, setIsValid] = useState(false);
-  const [name, setName] = useState(petition ? petition.questions.name.value : '');
-  const [surname, setSurname] = useState(petition ? petition.questions.surname.value : '');
-  const [patronymic, setPatronymic] = useState(petition ? petition.questions.patronymic.value : '');
+  let id = '';
+  let isFillStore = false;
+  let nameStore = '';
+  let surnameStore = '';
+  let patronymicStore = '';
+
+  if(petition) {
+    id = petition.id;
+    isFillStore = petition.questions.FIO.isFill;
+    nameStore = petition.items.name;
+    surnameStore = petition.items.surname;
+    patronymicStore = petition.items.patronymic;
+  }
+
+  const [isValid, setIsValid] = useState(isFillStore);
+  const [name, setName] = useState(nameStore);
+  const [surname, setSurname] = useState(surnameStore);
+  const [patronymic, setPatronymic] = useState(patronymicStore);
 
   useEffect(() => {
     if(name.length < 2 ) {
@@ -44,59 +60,29 @@ function FIOScreen({navigation}: Props) {
       return;
     }
     setIsValid(true);
-    handleFill();
-  }, [name, surname, patronymic])
+  }, [name, surname, patronymic]);
 
-  function handleFill() {
-    if (petition) {
-      dispatch(
-        addPetitionItem({
-          id: petition.id,
-          item: 'name',
-          value: name,
-        }),
-      );
-      dispatch(
-        addPetitionItem({
-          id: petition.id,
-          item: 'surname',
-          value: surname,
-        }),
-      );
-      dispatch(
-        addPetitionItem({
-          id: petition.id,
-          item: 'patronymic',
-          value: patronymic,
-        }),
-      );
-    }
+  useEffect(() => {
+    changePetitionStore(isValid);
+  }, [isValid])
+
+  function changePetitionStore(isFill: boolean) {
+    dispatch(changePetition({
+      id,
+      question: 'FIO',
+      isFill
+    }));
   }
 
   function changeTextInStore(
     text: string,
     item: 'name' | 'surname' | 'patronymic',
   ) {
-    if (petition) {
-      dispatch(
-        changePetitionItem({
-          id: petition.id,
-          item: item,
-          value: text,
-        }),
-      );
-    }
-  }
-
-  function setFillInStore(item: 'name' | 'surname' | 'patronymic') {
-    if(petition) {
-      dispatch(
-        fillPetitionItem({
-          id: petition.id,
-          item,
-        }),
-      );
-    }
+    dispatch(changeItem({
+      id,
+      item: item,
+      value: text,
+    }));
   }
 
   function handleName(evt: NativeSyntheticEvent<TextInputChangeEventData>): void {

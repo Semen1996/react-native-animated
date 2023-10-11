@@ -4,7 +4,7 @@ import ButtonSkip from '../../components/ButtonSkip';
 import HeaderFilling from '../../components/HeaderFilling';
 import InputDropDown from '../../components/InputDropDown';
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
-import {addPetitionItem} from '../../store/petitionSlice';
+import {changeItem, changePetition} from '../../store/petitionSlice';
 import {useState} from 'react';
 import ButtonDone from '../../components/ButtonDone';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,19 +14,33 @@ type Props = NativeStackScreenProps<FillingFormStackParamList, 'Сitizenship'>;
 
 function СitizenshipScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
-  const [isFill, setIsFill] = useState(false);
-  const petition = useAppSelector(state => state.petitions.currentPetition);
-  function addItem(value: string): void {
-      if(petition) {
-        setIsFill(true);
-        dispatch(
-          addPetitionItem({
-            id: petition.id,
-            item: 'citizenship',
-            value,
-          }),
-        );
-      }
+  const petition = useAppSelector(state => {
+    const id = state.petitions.currentID;
+    return state.petitions.list.find(p => p.id === id);
+  });
+
+  let id = '';
+  let citizenshipStore = '';
+
+  if(petition) {
+    id = petition.id;
+    citizenshipStore = petition.items.citizenship;
+  }
+  const [citizenship, setCitizenship] = useState(citizenshipStore);
+
+  function setItem(value: string): void {
+    setCitizenship(value);
+    dispatch(changeItem({
+      id,
+      item: 'citizenship',
+      value,
+    }));
+
+    dispatch(changePetition({
+      id,
+      question: 'citizenship',
+      isFill: true,
+    }));
   }
 
   function navigate() {
@@ -42,9 +56,9 @@ function СitizenshipScreen({navigation}: Props) {
       />
       <View style={globalStyles.main}>
         <View style={{marginTop: 56}}>
-          <InputDropDown setItem={addItem} inputItem={petition?.questions.citizenship.value}/>
+          <InputDropDown setItem={setItem} inputItem={citizenship}/>
         </View>
-        {isFill ? (
+        {citizenship ? (
           <ButtonDone onPress={navigate} />
         ) : (
           <ButtonSkip

@@ -4,42 +4,42 @@ type IQuetionsRVP = {
   citizenship: {
     title: string;
     screen: 'Сitizenship';
-    value: string;
     isFill: boolean;
   };
   hasQuota: {
     title: string;
     screen: 'IsQuota';
-    value: string;
     isFill: boolean;
   };
   motives: {
     title: string;
     screen: 'Motives';
-    value: string;
     isFill: boolean;
   };
-  name: {
+  FIO: {
     title: string;
     screen: 'FIO';
-    value: string;
-    isFill: boolean;
-  };
-  surname: {
-    title: string;
-    screen: 'FIO';
-    value: string;
-    isFill: boolean;
-  };
-  patronymic: {
-    title: string;
-    screen: 'FIO';
-    value: string;
     isFill: boolean;
   };
 };
 
 type IQuetions = IQuetionsRVP;
+
+type IItemsAny = {
+  [key: string]: string | boolean;
+};
+
+type IItemsRVP = {
+  citizenship: string;
+  hasQuota: string;
+  motives: string;
+  name: string;
+  surname: string;
+  patronymic: string;
+};
+
+type IItems = IItemsRVP;
+
 
 export type IPetition = {
   readonly id: string;
@@ -49,15 +49,16 @@ export type IPetition = {
   procent: number;
   titleForm: string;
   questions: IQuetions;
+  items: IItems;
 };
 
 type PetitionsState = {
-  currentPetition: IPetition | undefined;
+  currentID: string;
   list: IPetition[];
 };
 
 const initialState: PetitionsState = {
-  currentPetition: undefined,
+  currentID: '',
   list: [],
 };
 
@@ -88,104 +89,69 @@ const petitionSlice = createSlice({
             title: 'Текущее гражданство',
             screen: 'Сitizenship',
             isFill: false,
-            value: '',
           },
           hasQuota: {
             title: 'Подача заявления с квотой или без',
             screen: 'IsQuota',
             isFill: false,
-            value: '',
           },
           motives: {
             title: 'Мотивы получения РВП',
             screen: 'Motives',
             isFill: false,
-            value: '',
           },
-          name: {
+          FIO: {
             title: 'ФИО',
             screen: 'FIO',
-            value: '',
             isFill: false,
           },
-          surname: {
-            title: 'ФИО',
-            screen: 'FIO',
-            value: '',
-            isFill: false,
-          },
-          patronymic: {
-            title: 'ФИО',
-            screen: 'FIO',
-            value: '',
-            isFill: true,
-          },
+        },
+        items: {
+          citizenship: '',
+          hasQuota: '',
+          motives: '',
+          name: '',
+          surname: '',
+          patronymic: ''
         },
       }
       state.list.push(newPetition);
-
-      state.currentPetition = newPetition;
+      state.currentID = idPetition;
     },
 
-    addPetitionItem<K extends keyof IQuetions, V extends IQuetions[K]['title']>(
-      state: PetitionsState,
-      action: PayloadAction<{id: string; item: K; value: V}>,
-    ) {
+
+    changePetition<K extends keyof IQuetions>(state: PetitionsState, action: PayloadAction<{id: string; question: K; isFill: boolean}>) {
+      const id = action.payload.id;
+      const question = action.payload.question;
+      const isFill = action.payload.isFill;
+      const petition = state.list.find(p => p.id === id);
+
+      if (petition) {
+        petition.questions[question].isFill = isFill;
+        petition.progress = countProgress(petition.questions);
+        petition.procent = Math.floor(petition.length / petition.progress* 100);
+        petition.isFill = (petition.procent === 100);
+        console.log('z')
+        console.log(petition.questions[question].isFill)
+      } else {
+        console.log('Вызвать метод addPetition');
+      }
+    },
+
+    changeItem<K extends keyof IItems, V extends IItems[K]>(state: PetitionsState, action: PayloadAction<{id: string; item: K, value: V}>) {
       const id = action.payload.id;
       const item = action.payload.item;
       const value = action.payload.value;
       const petition = state.list.find(p => p.id === id);
-
       if (petition) {
-        petition.questions[item].value = value;
-        petition.questions[item].isFill = true;
-        petition.progress = countProgress(petition.questions);
-        petition.procent = Math.floor(petition.length / petition.progress* 100);
-        petition.isFill = (petition.procent === 100);
-      } else {
-        console.log('Вызвать метод addPetition');
+        petition.items[item] = value;
+        console.log('v')
+        console.log(petition.items[item])
       }
-    },
-
-    changePetitionItem<K extends keyof IQuetions, V extends IQuetions[K]['title']>(
-      state: PetitionsState,
-      action: PayloadAction<{id: string; item: K; value: V}>,
-    ) {
-      const id = action.payload.id;
-      const item = action.payload.item;
-      const value = action.payload.value;
-      const petition = state.list.find(p => p.id === id);
-
-      if (petition) {
-        petition.questions[item].value = value;
-        petition.questions[item].isFill = false;
-        petition.progress = countProgress(petition.questions);
-        petition.procent = Math.floor(petition.length / petition.progress* 100);
-        petition.isFill = (petition.procent === 100);
-      } else {
-        console.log('Вызвать метод addPetition');
-      }
-    },
-    fillPetitionItem<K extends keyof IQuetions>(
-      state: PetitionsState,
-      action: PayloadAction<{id: string; item: K}>,
-    ) {
-      const id = action.payload.id;
-      const item = action.payload.item;
-      const petition = state.list.find(p => p.id === id);
-
-      if (petition) {
-        petition.questions[item].isFill = true;
-        petition.progress = countProgress(petition.questions);
-        petition.procent = Math.floor(petition.length / petition.progress* 100);
-        petition.isFill = (petition.procent === 100);
-      } else {
-        console.log('Вызвать метод addPetition');
-      }
-    },
+    }
   },
 });
 
-export const {addPetition, addPetitionItem, fillPetitionItem, changePetitionItem} = petitionSlice.actions;
+export const {addPetition, changePetition, changeItem} = petitionSlice.actions;
 
 export default petitionSlice.reducer;
