@@ -3,10 +3,10 @@ import FIOScreen from '../screens/RVPForm/FIOScreen';
 import IsQuotaScreen from '../screens/RVPForm/IsQuotaScreen';
 import MotivesScreen from '../screens/RVPForm/MotivesScreen';
 import QuestionsScreen from '../screens/QuestionsScreen';
-import StartFillingScreen from '../screens/StartFillingScreen';
+import StartScreen from '../screens/RVPForm/StartScreen';
 import СitizenshipScreen from '../screens/RVPForm/СitizenshipScreen';
 
-export type FillingFormStackParamList = {
+export type RVPFormStackParamList = {
   Questions: {readonly title: string}  | undefined;
   Start: {readonly title: string}  | undefined;
   Сitizenship: {readonly title: string}  | undefined;
@@ -15,18 +15,18 @@ export type FillingFormStackParamList = {
   FIO: {readonly title: string}  | undefined;
 };
 
-const FillingFormStack = createNativeStackNavigator<FillingFormStackParamList>();
+const RVPFormStack = createNativeStackNavigator<RVPFormStackParamList>();
 
-function FillingForm() {
+function RVPForm() {
   return (
-    <FillingFormStack.Navigator
+    <RVPFormStack.Navigator
       initialRouteName="Start"
       screenOptions={{
         headerShown: false,
         animation: 'slide_from_right',
       }}>
       
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="Questions"
         initialParams={{title: 'Список вопросов'}}
         component={QuestionsScreen}
@@ -36,33 +36,33 @@ function FillingForm() {
           animationTypeForReplace: 'pop',
         }}
       />
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="Start"
         initialParams={{title: 'Начальная страница'}}
-        component={StartFillingScreen}
+        component={StartScreen}
       />
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="Сitizenship"
         initialParams={{title: 'Текущее гражданство'}}
         component={СitizenshipScreen}
       />
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="IsQuota"
         initialParams={{title: 'Подача заявления с квотой или без'}}
         component={IsQuotaScreen}
       />
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="Motives"
         initialParams={{title: 'Мотивы получения РВП'}}
         component={MotivesScreen}
       />
-      <FillingFormStack.Screen
+      <RVPFormStack.Screen
         name="FIO"
         initialParams={{title: 'ФИО'}}
         component={FIOScreen}
       />
-    </FillingFormStack.Navigator>
+    </RVPFormStack.Navigator>
   );
 }
 
-export default FillingForm;
+export default RVPForm;

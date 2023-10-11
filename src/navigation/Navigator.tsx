@@ -2,13 +2,13 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import InitialScreen from '../screens/InitialScreen';
 import BottomTabs from './BottomTabs';
-import FillingForm from './FillingForm';
 import WorkingForm from './WorkingForm';
+import RVPForm from './RVPForm';
 
 export type RootStackParamList = {
   Initial: undefined;
   BottomTabs: undefined;
-  FillingForm: undefined;
+  RVPForm: undefined;
   WorkingForm: undefined;
 };
 
@@ -20,7 +20,7 @@ function Navigator() {
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Initial" component={InitialScreen} />
         <Stack.Screen name="BottomTabs" component={BottomTabs} />
-        <Stack.Screen name="FillingForm" component={FillingForm} />
+        <Stack.Screen name="RVPForm" component={RVPForm} />
         <Stack.Screen name="WorkingForm" component={WorkingForm} />
       </Stack.Navigator>
     </NavigationContainer>

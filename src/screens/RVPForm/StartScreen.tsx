@@ -1,20 +1,19 @@
 import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
-import MoneyIcon from '../images/Icons/payments.svg';
-import PointIcon from '../images/Icons/point_stroke.svg';
-import CountriesDropDown from "../components/CountriesDropDown";
-import BackButton from "../components/BackButton";
-import { useAppDispatch } from "../hooks/hook";
-import { addPetition } from "../store/petitionSlice";
-import { FillingFormStackParamList } from "../navigation/FillingForm";
+import MoneyIcon from '../../images/Icons/payments.svg';
+import PointIcon from '../../images/Icons/point_stroke.svg';
+import CountriesDropDown from "../../components/CountriesDropDown";
+import BackButton from "../../components/BackButton";
+import { useAppDispatch } from "../../hooks/hook";
+import { addPetition } from "../../store/petitionSlice";
+import { FillingFormStackParamList } from "../../navigation/FillingForm";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type Props = NativeStackScreenProps<FillingFormStackParamList, 'Start'>;
 
-function StartFillingScreen({navigation}: Props) {
+function StartScreen({navigation}: Props) {
   const dispatch = useAppDispatch();
   const colorFill = '#FFBEB5';
 
-  
   function handleFill() {
     dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
     navigation.navigate('Сitizenship')
@@ -157,4 +156,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default StartFillingScreen;
+export default StartScreen;

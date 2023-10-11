@@ -29,7 +29,7 @@ function HomeScreen({navigation}: Props) {
           </TouchableOpacity>
         </Shadow>
       <Shadow distance={4} startColor={'#1C1C1C1A'} offset={[0, 4]} style={{marginBottom: 16, width: '100%'}}>
-        <TouchableOpacity onPress={() => navigation.navigate('FillingForm')} style={[styles.card, styles.cardColorPink]}>
+        <TouchableOpacity onPress={() => navigation.navigate('RVPForm')} style={[styles.card, styles.cardColorPink]}>
           <Text style={styles.cardTitle}>Заявление о выдаче РВП</Text>
           <Text style={styles.cardText}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp</Text>
           <View style={styles.cardFooter}>
