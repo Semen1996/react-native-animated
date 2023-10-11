@@ -18,15 +18,16 @@ import { useAppSelector } from '../hooks/hook';
 type Props = NativeStackScreenProps<FillingFormStackParamList, 'Questions'>;
 
 function QuestionsScreen({navigation}: Props) {
-  const questions = useAppSelector(state => {
-    const obj = state.petitions.currentPetition?.questions
-    if(obj) {
-      return Object.entries(obj);
-    }
-    return [];
+  const petition = useAppSelector(state => {
+    const id = state.petitions.currentID;
+    return state.petitions.list.find(p => p.id === id);
   });
 
-  console.log(navigation);
+  let questions: any[] = [];
+
+  if(petition) {
+    questions = Object.values(petition.questions);
+  }
 
   return (
     <View style={globalStyles.container}>
@@ -39,21 +40,18 @@ function QuestionsScreen({navigation}: Props) {
       <FlatList
         data={questions}
         renderItem={({item, index}) => {
-          const newItem = item[1];
-          const screen = newItem.screen;
           return (
-            <TouchableOpacity onPress={() => navigation.navigate('IsQuota')} style={styles.item}>
+            <TouchableOpacity onPress={() => navigation.navigate(item.screen)} style={styles.item}>
               <View style={{flexDirection: 'row'}}>
                 <Text  style={[globalStyles.text, globalStyles.text14Med, styles.itemIndex]}>{index+1}</Text>
-                <Text style={[globalStyles.text, globalStyles.text14Med]}>{newItem.title}</Text>
+                <Text style={[globalStyles.text, globalStyles.text14Med]}>{item.title}</Text>
               </View>
               {
-                newItem.isFill ?
+                item.isFill ?
                 <DoneIcon width={32} height={32}/>
                 :
                 <NotDoneIcon width={32} height={32}/>
               }
-              
             </TouchableOpacity>
           )
         }}
