@@ -22,7 +22,7 @@ NativeStackScreenProps<PetitionStackParamList, 'InProgress'>,
 >;
 function InProgressScreen({navigation, route}: Props) {
   const dispatch = useDispatch();
-  const colorFill = colors.pink;
+  let colorFill = 'black';
   let name = '';
   let surname = '';
   let patronomic = '';
@@ -41,8 +41,10 @@ function InProgressScreen({navigation, route}: Props) {
 
     if(petition.form === 'RVPForm') {
       longTitleForm = longTitleFormRVP;
+      colorFill = colors.pink;
     } else if(petition.form === 'WorkingForm') {
       longTitleForm = longTitleFormWorking;
+      colorFill = colors.purple;
     }
   }
 
