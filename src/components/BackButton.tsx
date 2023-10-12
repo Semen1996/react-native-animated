@@ -5,7 +5,7 @@ function BackButton(props: any) {
   const onPress = props.onPress;
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
-      <BackIcon width={26} height={24} fill='#2E2E2E'/>
+      <BackIcon width={24} height={24} fill='#2E2E2E'/>
     </TouchableOpacity>
   );
 }

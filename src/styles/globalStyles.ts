@@ -51,6 +51,12 @@ const globalStyles = StyleSheet.create({
     lineHeight: 23,
     letterSpacing: 0.15,
   },
+  text20Mediun: {
+    fontSize: 20,
+    fontWeight: '500',
+    lineHeight: 24,
+    letterSpacing: 0.15,
+  },
   text22Reg: {
     fontSize: 22,
     lineHeight: 28,

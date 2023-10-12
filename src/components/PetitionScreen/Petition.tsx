@@ -5,7 +5,7 @@ import colors from "../../utils/colors";
 import globalStyles from "../../styles/globalStyles";
 import ProgressBar from "../../components/PetitionScreen/ProgressBar";
 
-function Petition({petition}: {petition: IPetition}) {
+function Petition({petition, navigate}: {petition: IPetition, navigate: any}) {
   function determineСolor(titleForm: string): string {
     let color: string;
     if(titleForm === 'Заявление о выдаче РВП') {
@@ -20,11 +20,15 @@ function Petition({petition}: {petition: IPetition}) {
     return color;
   }
 
+  function handleButton() {
+    navigate(petition);
+  }
+
   const procent = Math.floor((petition.progress / petition.length) * 100);
   const colorItem = determineСolor(petition.titleForm);
 
   return (
-    <TouchableOpacity style={styles.card} key={petition.id}>
+    <TouchableOpacity onPress={handleButton} style={styles.card} key={petition.id}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <PointPetition color={colorItem} />
         <Text style={[ globalStyles.text, globalStyles.text16Med, {paddingLeft: 12} ]}>

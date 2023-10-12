@@ -10,7 +10,7 @@ import AccountIcon from '../images/Icons/person_stroke.svg';
 import AccountFillIcon from '../images/Icons/person_fill.svg';
 import HomeScreen from '../screens/HomeScreen';
 import globalStyles from '../styles/globalStyles';
-import PetitionStack from './PetitionStack';
+import PetitionScreen from '../screens/PetitionScreen';
 
 type ITabIcon = {
   name: string;
@@ -20,7 +20,7 @@ type ITabIcon = {
 
 export type TabStackParamList = {
   Home: {readonly title: string} | undefined;
-  PetitionsStack: {readonly title: string} | undefined;
+  Petitions: {readonly title: string} | undefined;
   Chat: {readonly title: string} | undefined;
   Account: {readonly title: string} | undefined;
 };
@@ -106,20 +106,20 @@ function BottomTabs() {
         options={{tabBarShowLabel: false}}
       />
       <Tab.Screen
-        name="PetitionsStack"
-        component={PetitionStack}
+        name="Petitions"
+        component={PetitionScreen}
         initialParams={{title: 'Заявления'}}
         options={{tabBarShowLabel: false}}
       />
       <Tab.Screen
         name="Chat"
-        component={PetitionStack}
+        component={PetitionScreen}
         initialParams={{title: 'Чат'}}
         options={{tabBarShowLabel: false, tabBarBadge: 3}}
       />
       <Tab.Screen
         name="Account"
-        component={PetitionStack}
+        component={PetitionScreen}
         initialParams={{title: 'Аккаунт'}}
         options={{tabBarShowLabel: false}}
       />

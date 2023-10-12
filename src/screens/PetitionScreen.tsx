@@ -9,8 +9,15 @@ import Point from "../components/PetitionScreen/Point";
 import Petition from "../components/PetitionScreen/Petition";
 import EmptyPetition from "../components/PetitionScreen/EmptyPetition";
 import Separator from "../components/PetitionScreen/Separator";
+import { PetitionStackParamList } from "../navigation/PetitionStack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { CompositeScreenProps } from "@react-navigation/native";
+import { RootStackParamList } from "../navigation/Navigator";
 
-type Props = BottomTabScreenProps<TabStackParamList, 'Petitions'>;
+type Props = CompositeScreenProps<
+  BottomTabScreenProps<TabStackParamList,'Petitions'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 function PetitionScreen({navigation}: Props) {
   const [isOpen1, setIsOpen1] = useState(false);
@@ -27,6 +34,14 @@ function PetitionScreen({navigation}: Props) {
       petitionsProcess.push(petition);
     }
   });
+
+  function navigateInProgress(petition: IPetition) {
+    navigation.navigate('PetitionStack', {screen: 'InProgress', params: {petition}})
+  }
+
+  function navigateReady(petition: IPetition) {
+    navigation.navigate('PetitionStack', {screen: 'Ready', params: {petition}})
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -47,9 +62,9 @@ function PetitionScreen({navigation}: Props) {
         <View style={!isOpen1 && styles.cardHide}>
           {
             petitionsProcess.length ?
-              petitionsProcess.map(petition => <Petition petition={petition}/>)
+              petitionsProcess.map(petition => <Petition petition={petition} navigate={navigateInProgress}/>)
             :
-            <EmptyPetition onPress={() => navigation.navigate('Home')}/>
+            <EmptyPetition/>
           }
         </View>
         <View style={{marginVertical: 16}}>
@@ -68,9 +83,9 @@ function PetitionScreen({navigation}: Props) {
         <View style={!isOpen2 && styles.cardHide}>
           {
             petitionsReady.length ?
-              petitionsReady.map(petition => <Petition petition={petition}/>)
+              petitionsReady.map(petition => <Petition petition={petition} navigate={navigateReady}/>)
             :
-              <EmptyPetition onPress={() => navigation.navigate('Home')}/>
+              <EmptyPetition/>
           }
         </View>
       </View>
