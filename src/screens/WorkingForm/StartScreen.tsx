@@ -16,12 +16,18 @@ function StartScreen({navigation}: Props) {
   const colorFill = colors.purple;
 
   function handleFill() {
-    dispatch(addPetition({titleForm: 'Оформление патента на работу'}));
+    dispatch(addPetition({
+      titleForm: 'Оформление патента на работу',
+      longTitleForm: 'Оформление трудового патента'
+    }));
     navigation.navigate('FIO');
   };
 
   function clickQuestions() {
-    dispatch(addPetition({titleForm: 'Оформление патента на работу'}));
+    dispatch(addPetition({
+      titleForm: 'Оформление патента на работу',
+      longTitleForm: 'Оформление трудового патента'
+    }));
     navigation.navigate('Questions');
   }
 

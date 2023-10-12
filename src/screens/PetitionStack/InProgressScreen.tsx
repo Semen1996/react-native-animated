@@ -26,6 +26,7 @@ function InProgressScreen({navigation, route}: Props) {
   let patronomic = '';
   let citizenship = '';
   let update = '';
+  let longTitleForm = ''
 
   const petition = route.params?.petition;
 
@@ -35,6 +36,7 @@ function InProgressScreen({navigation, route}: Props) {
     patronomic = petition.items.patronymic;
     citizenship = petition.items.citizenship;
     update = petition.update;
+    longTitleForm = petition.longTitleForm;
   }
 
   function handleContinue() {
@@ -61,7 +63,7 @@ function InProgressScreen({navigation, route}: Props) {
       />
       <View style={globalStyles.main}>
         <View style={styles.content}>
-          <Text style={[globalStyles.text, globalStyles.text20Mediun]}>Заявление о выдаче разрешения на Вид на жительство (ВНЖ)</Text>
+          <Text style={[globalStyles.text, globalStyles.text20Mediun]}>{longTitleForm}</Text>
           <View style={[styles.price, {backgroundColor: colorFill}]}>
             <MoneyIcon width={18} height={18} />
             <Text style={[globalStyles.text, globalStyles.text14Med, styles.priceCount]}>499 Р</Text>

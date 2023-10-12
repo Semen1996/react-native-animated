@@ -25,6 +25,7 @@ export type IPetition = {
   procent: number;
   update: string;
   titleForm: string;
+  longTitleForm: string;
   questions: IQuetions;
   items: IItems;
 };
@@ -57,13 +58,13 @@ const petitionSlice = createSlice({
   initialState,
   reducers: {
     addPetition(state: PetitionsState,
-      action: PayloadAction<{titleForm: string}>) {
+      action: PayloadAction<{titleForm: string, longTitleForm: string}>) {
       const idPetition = new Date().toISOString();
 
       const titleForm = action.payload.titleForm;
       let questions = {};
       let items = {};
-
+      let longTitleForm = '';
       if(titleForm === 'Заявление о выдаче РВП') {
         questions = questionsRVP;
         items = itemsRVP;
@@ -79,7 +80,8 @@ const petitionSlice = createSlice({
         procent: 0,
         id: idPetition,
         update: '',
-        titleForm: titleForm,
+        titleForm,
+        longTitleForm,
         questions,
         items
       };

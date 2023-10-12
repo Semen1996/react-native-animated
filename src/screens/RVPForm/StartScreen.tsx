@@ -16,12 +16,18 @@ function StartScreen({navigation}: Props) {
   const colorFill = colors.pink;
 
   function handleFill() {
-    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
+    dispatch(addPetition({
+      titleForm: 'Заявление о выдаче РВП',
+      longTitleForm: 'Заявление о выдаче разрешения на временное проживание в РФ (РВП)',
+    }));
     navigation.navigate('Сitizenship')
   };
 
   function clickQuestions() {
-    dispatch(addPetition({titleForm: 'Заявление о выдаче РВП'}));
+    dispatch(addPetition({
+      titleForm: 'Заявление о выдаче РВП',
+      longTitleForm: 'Заявление о выдаче разрешения на временное проживание в РФ (РВП)',
+    }));
     navigation.navigate('Questions');
   }
 
