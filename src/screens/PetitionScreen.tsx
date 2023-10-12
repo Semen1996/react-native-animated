@@ -64,7 +64,7 @@ function PetitionScreen({navigation}: Props) {
             petitionsProcess.length ?
               petitionsProcess.map(petition => <Petition petition={petition} navigate={navigateInProgress}/>)
             :
-            <EmptyPetition/>
+            <EmptyPetition onPress={() => navigation.navigate('Home')}/>
           }
         </View>
         <View style={{marginVertical: 16}}>
@@ -85,7 +85,7 @@ function PetitionScreen({navigation}: Props) {
             petitionsReady.length ?
               petitionsReady.map(petition => <Petition petition={petition} navigate={navigateReady}/>)
             :
-              <EmptyPetition/>
+              <EmptyPetition onPress={() => navigation.navigate('Home')}/>
           }
         </View>
       </View>
