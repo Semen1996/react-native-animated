@@ -50,7 +50,7 @@ function countProgress(questions: IQuetions): number {
 
 function countUpdateTime(): string {
   const date = new Date();
-  return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()+1}`
+  return `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`
 }
 
 const petitionSlice = createSlice({
