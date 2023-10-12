@@ -4,20 +4,22 @@ import PointPetition from "../../components/PetitionScreen/PointPetition";
 import colors from "../../utils/colors";
 import globalStyles from "../../styles/globalStyles";
 import ProgressBar from "../../components/PetitionScreen/ProgressBar";
+import { titleFormRVP } from "../../utils/RVPForm";
+import { titleFormWorking } from "../../utils/WorkingForm";
 
 function Petition({petition, navigate}: {petition: IPetition, navigate: any}) {
-  function determineСolor(titleForm: string): string {
-    let color: string;
-    if(titleForm === 'Заявление о выдаче РВП') {
-      color = colors.pink;
-    } else if(titleForm === 'Заявление на Гражданство РФ') {
-      color = colors.green;
-    } else if(titleForm === 'Заявление о выдаче ВНЖ') {
-      color = colors.yellow;
-    } else {
-      color = colors.purple;
+  function determineItemsForm(form: string): {colorItem: string, titleForm: string} {
+    let colorItem = 'black';
+    let titleForm = '';
+
+    if(form === 'RVPForm') {
+      colorItem = colors.pink;
+      titleForm = titleFormRVP;
+    } else if(form === 'WorkingForm') {
+      colorItem = colors.purple;
+      titleForm = titleFormWorking;
     }
-    return color;
+    return {colorItem, titleForm};
   }
 
   function handleButton() {
@@ -25,14 +27,14 @@ function Petition({petition, navigate}: {petition: IPetition, navigate: any}) {
   }
 
   const procent = Math.floor((petition.progress / petition.length) * 100);
-  const colorItem = determineСolor(petition.titleForm);
+  const {colorItem, titleForm} = determineItemsForm(petition.form);
 
   return (
     <TouchableOpacity onPress={handleButton} style={styles.card} key={petition.id}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <PointPetition color={colorItem} />
         <Text style={[ globalStyles.text, globalStyles.text16Med, {paddingLeft: 12} ]}>
-          {petition.titleForm}
+          {titleForm}
         </Text>
       </View>
       <View style={styles.cardData}>

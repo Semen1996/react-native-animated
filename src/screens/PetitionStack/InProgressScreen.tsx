@@ -12,6 +12,8 @@ import { RootStackParamList } from "../../navigation/Navigator";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { changeCurrentID } from "../../store/petitionSlice";
+import { longTitleFormRVP } from "../../utils/RVPForm";
+import { longTitleFormWorking } from "../../utils/WorkingForm";
 
 // type Props = NativeStackScreenProps<PetitionStackParamList, 'InProgress'>;
 type Props = CompositeScreenProps<
@@ -36,7 +38,12 @@ function InProgressScreen({navigation, route}: Props) {
     patronomic = petition.items.patronymic;
     citizenship = petition.items.citizenship;
     update = petition.update;
-    longTitleForm = petition.longTitleForm;
+
+    if(petition.form === 'RVPForm') {
+      longTitleForm = longTitleFormRVP;
+    } else if(petition.form === 'WorkingForm') {
+      longTitleForm = longTitleFormWorking;
+    }
   }
 
   function handleContinue() {
@@ -46,9 +53,9 @@ function InProgressScreen({navigation, route}: Props) {
       const questions = Object.values(petition.questions);
       const nonFillQuestion = questions.find(q => q.isFill === false);
       if(nonFillQuestion) {
-        if(petition.titleForm === 'Заявление о выдаче РВП') {
+        if(petition.form === 'RVPForm') {
           navigation.navigate('RVPForm', {screen: nonFillQuestion.screen});
-        } else {
+        } else if(petition.form === 'WorkingForm') {
           navigation.navigate('WorkingForm', {screen: nonFillQuestion.screen});
         }
       }

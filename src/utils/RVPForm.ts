@@ -61,3 +61,7 @@ export const itemsRVP: IItemsRVP = {
   surname: '',
   patronymic: ''
 };
+
+export const titleFormRVP = 'Заявление о выдаче РВП';
+export const longTitleFormRVP = 'Заявление о выдаче Разрешения на временное проживание (РВП)';
+export const costFormRVP = 499;

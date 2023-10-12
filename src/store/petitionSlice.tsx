@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { IItemsRVP, IQuetionsRVP, itemsRVP, questionsRVP } from '../utils/RVPFormTemp';
-import { itemsWorking, questionsWorking } from '../utils/WorkingFormTemp';
+import { IItemsRVP, IQuetionsRVP, itemsRVP, questionsRVP } from '../utils/RVPForm';
+import { itemsWorking, questionsWorking, IItemsWorking, IQuetionsWorking } from '../utils/WorkingForm';
 
 type IQuetionsAny = {
   [key: string]: {
@@ -14,8 +14,8 @@ type IItemsAny = {
   [key: string]: string;
 };
 
-type IQuetions = IQuetionsRVP | IQuetionsAny;
-type IItems = IItemsRVP | IItemsAny;
+type IQuetions = IQuetionsRVP | IQuetionsWorking | IQuetionsAny;
+type IItems = IItemsRVP | IItemsWorking | IItemsAny;
 
 export type IPetition = {
   readonly id: string;
@@ -24,8 +24,7 @@ export type IPetition = {
   length: number;
   procent: number;
   update: string;
-  titleForm: string;
-  longTitleForm: string;
+  form: string;
   questions: IQuetions;
   items: IItems;
 };
@@ -58,17 +57,17 @@ const petitionSlice = createSlice({
   initialState,
   reducers: {
     addPetition(state: PetitionsState,
-      action: PayloadAction<{titleForm: string, longTitleForm: string}>) {
+      action: PayloadAction<{form: string}>) {
       const idPetition = new Date().toISOString();
 
-      const titleForm = action.payload.titleForm;
+      const form = action.payload.form;
       let questions = {};
       let items = {};
-      let longTitleForm = '';
-      if(titleForm === 'Заявление о выдаче РВП') {
+
+      if(form === 'RVPForm') {
         questions = questionsRVP;
         items = itemsRVP;
-      } else if(titleForm === 'Оформление патента на работу') {
+      } else if(form === 'WorkingForm') {
         questions = questionsWorking;
         items = itemsWorking;
       }
@@ -80,8 +79,7 @@ const petitionSlice = createSlice({
         procent: 0,
         id: idPetition,
         update: '',
-        titleForm,
-        longTitleForm,
+        form,
         questions,
         items
       };

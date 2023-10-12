@@ -61,3 +61,7 @@ export const itemsWorking: IItemsWorking = {
   surname: '',
   patronymic: ''
 };
+
+export const titleFormWorking = 'Оформление патента на работу';
+export const longTitleFormWorking = 'Оформление трудового патента';
+export const costFormWorking = 499;

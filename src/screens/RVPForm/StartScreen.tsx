@@ -8,6 +8,7 @@ import { addPetition } from "../../store/petitionSlice";
 import { RVPFormStackParamList } from "../../navigation/RVPForm";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import colors from "../../utils/colors";
+import { costFormRVP, longTitleFormRVP } from "../../utils/RVPForm";
 
 type Props = NativeStackScreenProps<RVPFormStackParamList, 'Start'>;
 
@@ -16,18 +17,12 @@ function StartScreen({navigation}: Props) {
   const colorFill = colors.pink;
 
   function handleFill() {
-    dispatch(addPetition({
-      titleForm: 'Заявление о выдаче РВП',
-      longTitleForm: 'Заявление о выдаче разрешения на временное проживание в РФ (РВП)',
-    }));
+    dispatch(addPetition({form: 'RVPForm'}));
     navigation.navigate('Сitizenship')
   };
 
   function clickQuestions() {
-    dispatch(addPetition({
-      titleForm: 'Заявление о выдаче РВП',
-      longTitleForm: 'Заявление о выдаче разрешения на временное проживание в РФ (РВП)',
-    }));
+    dispatch(addPetition({form: 'RVPForm'}));
     navigation.navigate('Questions');
   }
 
@@ -39,10 +34,10 @@ function StartScreen({navigation}: Props) {
       </View>
       <View style={styles.main}>
         <View>
-        <Text style={styles.title}>Заявление о выдаче Разрешения на временное проживание (РВП)</Text>
+        <Text style={styles.title}>{longTitleFormRVP}</Text>
         <View style={[styles.price, {backgroundColor: colorFill}]}>
           <MoneyIcon width={18} height={18} />
-          <Text style={styles.priceCount}>499 Р</Text>
+          <Text style={styles.priceCount}>{costFormRVP} Р</Text>
         </View>
         <View style={styles.list}>
           <View style={styles.listItem}>
