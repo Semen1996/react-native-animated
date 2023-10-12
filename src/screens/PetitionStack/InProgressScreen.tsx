@@ -8,10 +8,18 @@ import MoneyIcon from '../../images/Icons/payments.svg';
 import PreviewIcon from '../../images/Icons/preview.svg';
 import colors from "../../utils/colors";
 import ProgressBar from "../../components/PetitionScreen/ProgressBar";
+import { RootStackParamList } from "../../navigation/Navigator";
+import { CompositeScreenProps } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { changeCurrentID } from "../../store/petitionSlice";
 
-type Props = NativeStackScreenProps<PetitionStackParamList, 'InProgress'>;
-
+// type Props = NativeStackScreenProps<PetitionStackParamList, 'InProgress'>;
+type Props = CompositeScreenProps<
+NativeStackScreenProps<PetitionStackParamList, 'InProgress'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 function InProgressScreen({navigation, route}: Props) {
+  const dispatch = useDispatch();
   const colorFill = colors.pink;
   let name = '';
   let surname = '';
@@ -27,6 +35,22 @@ function InProgressScreen({navigation, route}: Props) {
     patronomic = petition.items.patronymic;
     citizenship = petition.items.citizenship;
     update = petition.update;
+  }
+
+  function handleContinue() {
+    if(petition) {
+      dispatch(changeCurrentID({id: petition.id}));
+      
+      const questions = Object.values(petition.questions);
+      const nonFillQuestion = questions.find(q => q.isFill === false);
+      if(nonFillQuestion) {
+        if(petition.titleForm === 'Заявление о выдаче РВП') {
+          navigation.navigate('RVPForm', {screen: nonFillQuestion.screen});
+        } else {
+          navigation.navigate('WorkingForm', {screen: nonFillQuestion.screen});
+        }
+      }
+    }
   }
 
   return(
@@ -74,7 +98,7 @@ function InProgressScreen({navigation, route}: Props) {
             </TouchableOpacity>
           </View>
         </View>
-        <ButtonBlack onPress={() => navigation.goBack()} title={'Продолжить заполнять'}/>
+        <ButtonBlack onPress={handleContinue} title={'Продолжить заполнять'}/>
       </View>
     </View>
   )

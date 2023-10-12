@@ -10,8 +10,8 @@ import { IPetition } from '../store/petitionSlice';
 export type RootStackParamList = {
   Initial: undefined;
   BottomTabs: undefined;
-  RVPForm: undefined;
-  WorkingForm: undefined;
+  RVPForm: {screen: string} | undefined;
+  WorkingForm: {screen: string} | undefined;
   PetitionStack: {screen: string, params: {petition: IPetition}} | undefined;
 };
 

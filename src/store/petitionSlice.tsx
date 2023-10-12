@@ -114,10 +114,14 @@ const petitionSlice = createSlice({
         petition.items[item] = value;
         petition.update = countUpdateTime();
       }
+    },
+    
+    changeCurrentID(state: PetitionsState, action: PayloadAction<{id: string}>) {
+      state.currentID = action.payload.id;
     }
   },
 });
 
-export const {addPetition, changePetition, changeItem} = petitionSlice.actions;
+export const {addPetition, changePetition, changeItem, changeCurrentID} = petitionSlice.actions;
 
 export default petitionSlice.reducer;
