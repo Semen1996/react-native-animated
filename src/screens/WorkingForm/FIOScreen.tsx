@@ -104,7 +104,7 @@ function FIOScreen({navigation}: Props) {
   }
 
   function navigate() {
-    navigation.navigate('Home');
+    navigation.navigate('Petitions');
   }
 
   return (
