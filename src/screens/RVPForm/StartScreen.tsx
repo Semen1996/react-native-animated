@@ -36,7 +36,7 @@ function StartScreen({navigation}: Props) {
         <View>
         <Text style={styles.title}>{longTitleFormRVP}</Text>
         <View style={[styles.price, {backgroundColor: colorFill}]}>
-          <MoneyIcon width={18} height={18} />
+          <MoneyIcon width={18} height={18} fill="#1C1C1C"/>
           <Text style={styles.priceCount}>{costFormRVP} Р</Text>
         </View>
         <View style={styles.list}>

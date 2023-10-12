@@ -35,7 +35,7 @@ function StartScreen({navigation}: Props) {
         <View>
         <Text style={styles.title}>Заявление о выдаче Разрешения на временное проживание (РВП)</Text>
         <View style={[styles.price, {backgroundColor: colorFill}]}>
-          <MoneyIcon width={18} height={18} />
+          <MoneyIcon width={18} height={18} fill="#1C1C1C"/>
           <Text style={styles.priceCount}>399 Р</Text>
         </View>
         <View style={styles.list}>

@@ -74,7 +74,7 @@ function InProgressScreen({navigation, route}: Props) {
         <View style={styles.content}>
           <Text style={[globalStyles.text, globalStyles.text20Mediun]}>{longTitleForm}</Text>
           <View style={[styles.price, {backgroundColor: colorFill}]}>
-            <MoneyIcon width={18} height={18} />
+            <MoneyIcon width={18} height={18} fill="#1C1C1C"/>
             <Text style={[globalStyles.text, globalStyles.text14Med, styles.priceCount]}>499 Р</Text>
           </View>
           <View style={styles.data}>
