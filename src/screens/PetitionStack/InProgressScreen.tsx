@@ -23,12 +23,13 @@ NativeStackScreenProps<PetitionStackParamList, 'InProgress'>,
 function InProgressScreen({navigation, route}: Props) {
   const dispatch = useDispatch();
   let colorFill = 'black';
+  let procent = 0;
   let name = '';
   let surname = '';
   let patronomic = '';
   let citizenship = '';
   let update = '';
-  let longTitleForm = ''
+  let longTitleForm = '';
 
   const petition = route.params?.petition;
 
@@ -38,6 +39,7 @@ function InProgressScreen({navigation, route}: Props) {
     patronomic = petition.items.patronymic;
     citizenship = petition.items.citizenship;
     update = petition.update;
+    procent = petition.procent;
 
     if(petition.form === 'RVPForm') {
       longTitleForm = longTitleFormRVP;
@@ -99,7 +101,7 @@ function InProgressScreen({navigation, route}: Props) {
               <Text style={[globalStyles.text, globalStyles.text16Med]}>0000 000001</Text>
             </Text>
           </View>
-          <ProgressBar procent={30} />
+          <ProgressBar procent={procent} />
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.button}>
               <View style={{width: 40, height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 100, backgroundColor: '#EAE6FF'}}>

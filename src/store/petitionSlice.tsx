@@ -20,6 +20,7 @@ type IItems = IItemsRVP | IItemsWorking | IItemsAny;
 export type IPetition = {
   readonly id: string;
   isFill: boolean;
+  isPay: boolean;
   progress: number;
   length: number;
   procent: number;
@@ -74,6 +75,7 @@ const petitionSlice = createSlice({
 
       const newPetition: IPetition = {
         isFill: false,
+        isPay: false,
         length: Object.keys(questions).length,
         progress: 0,
         procent: 0,
@@ -118,10 +120,20 @@ const petitionSlice = createSlice({
     
     changeCurrentID(state: PetitionsState, action: PayloadAction<{id: string}>) {
       state.currentID = action.payload.id;
+    },
+
+    payPetition(state: PetitionsState, action: PayloadAction<{idForm: string}>) {
+      const idForm = action.payload.idForm;
+      const petition = state.list.find(p => p.id === idForm);
+      if (petition) {
+        petition.isPay = true;
+        petition.update = countUpdateTime();
+      }
     }
+
   },
 });
 
-export const {addPetition, changePetition, changeItem, changeCurrentID} = petitionSlice.actions;
+export const {addPetition, changePetition, changeItem, changeCurrentID, payPetition} = petitionSlice.actions;
 
 export default petitionSlice.reducer;

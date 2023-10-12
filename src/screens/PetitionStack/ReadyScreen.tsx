@@ -1,4 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from 'react';
 import globalStyles from "../../styles/globalStyles";
 import Header from "../../components/PetitionStack/Header";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -12,7 +13,7 @@ import ProgressBar from "../../components/PetitionScreen/ProgressBar";
 import { RootStackParamList } from "../../navigation/Navigator";
 import { CompositeScreenProps } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { changeCurrentID } from "../../store/petitionSlice";
+import { changeCurrentID, payPetition } from "../../store/petitionSlice";
 import { costFormRVP, longTitleFormRVP } from "../../utils/RVPForm";
 import { costFormWorking, longTitleFormWorking } from "../../utils/WorkingForm";
 
@@ -23,23 +24,28 @@ NativeStackScreenProps<PetitionStackParamList, 'Ready'>,
 >;
 function ReadyScreen({navigation, route}: Props) {
   const dispatch = useDispatch();
+
   let colorFill = 'black';
   let cost = 0;
+  let procent = 0;
   let name = '';
   let surname = '';
   let patronomic = '';
   let citizenship = '';
   let update = '';
-  let longTitleForm = ''
+  let longTitleForm = '';
+  let isPayForm = false;
 
   const petition = route.params?.petition;
 
   if(petition) {
+    procent = petition.procent;
     name = petition.items.name;
     surname = petition.items.surname;
     patronomic = petition.items.patronymic;
     citizenship = petition.items.citizenship;
     update = petition.update;
+    isPayForm = petition.isPay;
 
     if(petition.form === 'RVPForm') {
       longTitleForm = longTitleFormRVP;
@@ -49,6 +55,15 @@ function ReadyScreen({navigation, route}: Props) {
       longTitleForm = longTitleFormWorking;
       cost = costFormWorking;
       colorFill = colors.purple;
+    }
+  }
+
+  const [isPay, setIsPay] = useState(isPayForm);
+
+  function handlePay() {
+    if(petition) {
+      setIsPay(true);
+      dispatch(payPetition({idForm: petition.id}));
     }
   }
 
@@ -99,7 +114,7 @@ function ReadyScreen({navigation, route}: Props) {
               <Text style={[globalStyles.text, globalStyles.text16Med]}>0000 000001</Text>
             </Text>
           </View>
-          <ProgressBar procent={30} />
+          <ProgressBar procent={procent} />
           <View style={styles.buttons}>
             <TouchableOpacity style={styles.button}>
               <View style={{width: 40, height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 100, backgroundColor: '#EAE6FF'}}>
@@ -115,10 +130,14 @@ function ReadyScreen({navigation, route}: Props) {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity onPress={handleContinue} style={styles.buttonBlack}>
-          <MoneyIcon width={18} height={18} fill='#FFF'/>
-          <Text style={[globalStyles.text, globalStyles.text14Med, styles.buttonBlackText]}>{`${cost} Р`}</Text>
-        </TouchableOpacity>
+        {
+          !isPay &&
+          <TouchableOpacity onPress={handlePay} style={styles.buttonBlack}>
+            <MoneyIcon width={18} height={18} fill='#FFF'/>
+            <Text style={[globalStyles.text, globalStyles.text14Med, styles.buttonBlackText]}>{`${cost} Р`}</Text>
+          </TouchableOpacity>
+        }
+
         {/* <ButtonBlack onPress={handleContinue} title={`${cost} Р`}/> */}
       </View>
     </View>
