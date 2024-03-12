@@ -1,20 +1,31 @@
 import { useEffect } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Easing } from 'react-native';
 
 function App() {
-  const moveY = new Animated.Value(0);
+  const anime1Value = new Animated.Value(-200);
+  const anime2Value = new Animated.Value(200);
 
   useEffect(() => {
-    Animated.timing(moveY, {
-      toValue: 300,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
+    Animated.stagger( 100, [
+      Animated.timing(anime1Value, {
+        toValue: 0,
+        duration: 10000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+      Animated.timing(anime2Value, {
+        toValue: 0,
+        duration: 5000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
+    ]).start();
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.box, {transform: [{translateY: moveY}]}]}></Animated.View>
+      <Animated.View style={[styles.rect, {transform: [{ translateX: anime1Value}, {translateY: anime2Value}]}]}></Animated.View>
+      <Animated.View style={[styles.rect, {transform: [{ translateX: anime2Value }]}]}></Animated.View>
     </View>
   );
 }
@@ -26,9 +37,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  box: {
-    width: 50,
-    height: 50,
+  rect: {
+    width: 100,
+    height: 25,
     backgroundColor:'red'
   }
 });
