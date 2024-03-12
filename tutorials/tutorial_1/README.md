@@ -1,9 +1,48 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+# React-Native. Animated API. Основы: ч.1
 
+Для начала рассмотрим движение красного квадрата по оси у.
+
+<code>
+import { useEffect } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
+
+function App() {
+  const moveY = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(moveY, {
+      toValue: 300,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Animated.View
+        style={[styles.box, {transform: [{translateY: moveY}]}]}
+      >
+      </Animated.View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  box: {
+    width: 50,
+    height: 50,
+    backgroundColor:'red'
+  }
+});
+</code>
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.

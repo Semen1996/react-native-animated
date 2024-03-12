@@ -1,20 +1,36 @@
-import {View, StatusBar} from 'react-native';
-import {Provider} from 'react-redux';
-import store, { persistor } from './store';
-import Navigator from './navigation/Navigator';
-import { PersistGate } from 'redux-persist/integration/react';
+import { useEffect } from 'react';
+import { View, StyleSheet, Animated } from 'react-native';
 
 function App() {
+  const moveY = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(moveY, {
+      toValue: 300,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-        <View style={{backgroundColor: '#FFFFFF', flex: 1}}>
-          <StatusBar backgroundColor={'#FFFFFF'} barStyle={'dark-content'} />
-          <Navigator />
-        </View>
-      </PersistGate>
-    </Provider>
+    <View style={styles.container}>
+      <Animated.View style={[styles.box, {transform: [{translateY: moveY}]}]}></Animated.View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  box: {
+    width: 50,
+    height: 50,
+    backgroundColor:'red'
+  }
+});
 
 export default App;
