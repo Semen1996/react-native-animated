@@ -4,7 +4,7 @@
 
 Для начала рассмотрим движение красного квадрата по оси у.
 
-```bash
+```ts
 import { useEffect } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
@@ -43,76 +43,80 @@ const styles = StyleSheet.create({
   }
 });
 ```
-## Step 1: Start the Metro Server
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+При создании анимации вам всегда нужно выполнить следующие три действия:
 
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+1. Создать анимированную переменную
+```ts
+const moveY = new Animated.Value(0);
+```
+2. Настроить параметры анимации и запустить ее
+```ts
+Animated.timing(moveY, {
+  toValue: 300,
+  duration: 500,
+  useNativeDriver: true,
+}).start();
+```
+3. Создать анимируемый компонент и привязать анимационную переменную к изменяемому стилю
+```ts
+<Animated.View style={[styles.box, {transform: [{translateY: moveY}]}]}>
+</Animated.View>
 ```
 
-## Step 2: Start your Application
+Рассмотрим каждый этап поподробнее
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+## 1. Создание анимированной переменной
 
-### For Android
-
-```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+Это команда, которой мы инициализируем анимацию и задаем ей начальное значение.
+Есть 2 типа инициализации:
+```ts
+Animated.Value() // Для одного числа
+Animated.ValueXY() // Для двумерной анимации (например, движение по x-, y- координатам)
 ```
 
-### For iOS
+## 2. Настройка параметров анимации и ее запуск
 
-```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+Animated предоставляет три типа анимации. Каждый тип анимации предоставляет определенную кривую анимации, которая управляет анимацией ваших значений от их начального значения до конечного значения
+```ts
+Animated.timing() // анимирует значение с течением времени с помощью easing function
+Animated.spring() //предоставляет базовую физическую модель пружины
+Animated.decay() // начинается с начальной скорости и постепенно замедляется до полной остановки
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Тут мы будем рассматривать только `Animated.timing()`, так как она чаще всего используется в решениях задач.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+```ts
+Animated.timing(var, config)
+```
+`var` - это анимированная переменная, которую мы инициализировали с помощью команды `Animated.Value()`;
+`config` - это объект со следующими возможными опциями (их больше, но это основные)
 
-## Step 3: Modifying your App
+- `toValue`: значение к концу анимации
+- `duration`: продолжительность анимации
+- `easing`: задание кривой анимации (linier, easyOut, easyIn,...)
+- `delay`: время задержки перед запуском анимации
+- `useNativeDriver`: использование nativeDriver (желательно всегда устанавливать true. Это в разы ускорит работу анимации)
 
-Now that you have successfully run the app, let's modify it.
+## 3. Создание анимируемой компоненты и привязка анимационной переменной к изменяемому стилю
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+Из коробки с Animated API поставляются шесть типов анимируемых компонентов:
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+-	View
+-	ScrollView
+-	Text
+-	Image
+-	FlatList
+-	SectionList
 
-## Congratulations! :tada:
+но вы также можете создать свой собственный, используя Animated.createAnimatedComponent().
 
-You've successfully run and modified your React Native App. :partying_face:
+Тут всё просто. Мы берем необходимый компонент и оборачиваем его в Animated.
+Далее берем анимационную переменную и вставляем в то свойство, которое хотели бы анимировать
 
-### Now what?
+```ts
+<Animated.View style={[styles.box, {transform: [{translateY: moveY}]}]}>
+</Animated.View>
+```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+А на этом всё. Продолжение в следующем туторе.
