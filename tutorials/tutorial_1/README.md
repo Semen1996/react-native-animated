@@ -4,7 +4,7 @@
 
 Для начала рассмотрим движение красного квадрата по оси у.
 
-<code>
+```bash
 import { useEffect } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     backgroundColor:'red'
   }
 });
-</code>
+```
 ## Step 1: Start the Metro Server
 
 First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
