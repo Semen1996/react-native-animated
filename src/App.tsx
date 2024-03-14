@@ -1,47 +1,46 @@
-import { useEffect } from 'react';
-import { View, StyleSheet, Animated, Easing } from 'react-native';
+import { useRef } from 'react';
+import { View, Animated, PanResponder } from 'react-native';
 
 function App() {
-  const anime1Value = new Animated.Value(-200);
-  const anime2Value = new Animated.Value(200);
+  const RECT_SIZE = 200;
 
-  useEffect(() => {
-    Animated.stagger( 100, [
-      Animated.timing(anime1Value, {
-        toValue: 0,
-        duration: 10000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-      Animated.timing(anime2Value, {
-        toValue: 0,
-        duration: 5000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      })
-    ]).start();
-  }, []);
+  const pan = useRef(
+    new Animated.ValueXY({
+      x: 0,
+      y: 0
+    })
+  ).current;
 
-  return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.rect, {transform: [{ translateX: anime1Value}, {translateY: anime2Value}]}]}></Animated.View>
-      <Animated.View style={[styles.rect, {transform: [{ translateX: anime2Value }]}]}></Animated.View>
-    </View>
-  );
-}
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gestureState) => {
+        if(gestureState.numberActiveTouches === 1) {
+          pan.setValue({
+            x: gestureState.dx,
+            y: gestureState.dy,
+          });
+        }
+      }
+    })
+  ).current;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-  },
-  rect: {
-    width: 100,
-    height: 25,
-    backgroundColor:'red'
-  }
-});
+ return (
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Animated.View
+      style={{
+        width: RECT_SIZE,
+        height: RECT_SIZE,
+        backgroundColor: 'blue',
+        transform: [
+          {translateX: pan.x},
+          {translateY: pan.y}
+        ]
+      }}
+      {...panResponder.panHandlers}
+    />
+  </View>
+ );
+};
 
 export default App;
