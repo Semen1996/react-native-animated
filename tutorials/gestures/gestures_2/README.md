@@ -1,4 +1,4 @@
-# React-Native. Gestures. Основы: ч.2 Система распознавания жестов в React-Native (Gesture Responder System)
+# React-Native. Gestures. Основы: ч.2 Gesture Responder System
 
 Чтобы начать распознавать жесты, компонент должен реализовать один из этих методов согласования:
 
